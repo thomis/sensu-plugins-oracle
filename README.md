@@ -1,3 +1,6 @@
+
+[![Dependency Status](https://gemnasium.com/badges/github.com/thomis/sensu-plugins-oracle.svg)](https://gemnasium.com/github.com/thomis/sensu-plugins-oracle)
+
 # sensu-plugins-oracle
 
 ## Functionality

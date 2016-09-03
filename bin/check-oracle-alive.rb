@@ -47,17 +47,37 @@ class CheckOracle < Sensu::Plugin::Check::CLI
          long: '--database DATABASE'
 
   option :privilege,
-         description: 'Connect to Oracle database by given priviledge such as (nil, :SYSDBA, :SYSOPER, :SYSASM, :SYSBACKUP, :SYSDG or :SYSKM)',
+         description: 'Connect to Oracle database by optional priviledge (:SYSDBA, :SYSOPER, :SYSASM, :SYSBACKUP, :SYSDG or :SYSKM)',
          short: '-P PRIVILEGE',
          long: '--privilege PRIVILEGE'
 
   option :timeout,
          description: 'Connection timeout (seconds)',
          short: '-T TIMEOUT',
-         long: '--timeout TIMEOUT',
-         default: nil
+         long: '--timeout TIMEOUT'
+
+  option :file,
+         description: 'File with connection strings to check',
+         short: '-f FILE',
+         long: '--file FILE'
 
   def run
+
+    if config[:file]
+      handle_file
+    else
+      handle_single_connection
+    end
+
+  end
+
+  private
+
+  def handle_file
+    unknown 'Not yet implemented'
+  end
+
+  def handle_single_connection
     OCI8.properties[:connect_timeout] = config[:timeout].to_i if config[:timeout]
 
     connection = OCI8.new(config[:username], config[:password], config[:database], config[:privilege])

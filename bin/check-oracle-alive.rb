@@ -96,7 +96,7 @@ class CheckOracle < Sensu::Plugin::Check::CLI
         end
       }
     end
-    thread_group.list.map &:join
+    thread_group.list.map(&:join)
     sessions_critical = queue.size.times.map { queue.pop }
 
     if sessions_total == sessions_alive

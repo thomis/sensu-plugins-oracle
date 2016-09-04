@@ -4,7 +4,7 @@
 
 # sensu-plugins-oracle
 
-This plugin provides native Oracle instrumentation.
+This sensu plugin provides native Oracle instrumentation.
 
 ## Files
  * bin/check-oracle-alive.rb
@@ -21,8 +21,11 @@ This plugin provides native Oracle instrumentation.
   check-oracle-alive.rb -f connections.csv
 
   > cat connections.csv
-  example_connection_1:scott/tiger@hr
-  example_connection_2:scott/tiger@hr_test
+  # production connection
+  example_connection_1,scott/tiger@hr
+
+  # test connection
+  example_connection_2,scott/tiger@hr_test
 
   ```
 

@@ -11,9 +11,20 @@ This plugin provides native Oracle instrumentation.
 
 ## Usage
 
+  ```
   check-oracle-alive.rb -u scott -p tiger -d hr
 
   check-oracle-alive.rb -u scott -p tiger -d ht -T 30
+  ```
+
+  ```
+  check-oracle-alive.rb -f connections.csv
+
+  > cat connections.csv
+  example_connection_1:scott/tiger@hr
+  example_connection_2:scott/tiger@hr_test
+
+  ```
 
 ## Installation
 

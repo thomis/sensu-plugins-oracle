@@ -29,7 +29,6 @@
 
 require 'sensu-plugins-oracle'
 require 'sensu-plugin/check/cli'
-require 'oci8'
 
 class CheckOracle < Sensu::Plugin::Check::CLI
   option :username,
@@ -48,7 +47,7 @@ class CheckOracle < Sensu::Plugin::Check::CLI
          long: '--database DATABASE'
 
   option :privilege,
-         description: 'Connect to Oracle database by optional priviledge (:SYSDBA, :SYSOPER, :SYSASM, :SYSBACKUP, :SYSDG or :SYSKM)',
+         description: 'Connect to Oracle database by optional priviledge (SYSDBA, SYSOPER, SYSASM,  , SYSDG or SYSKM)',
          short: '-P PRIVILEGE',
          long: '--privilege PRIVILEGE'
 
@@ -109,12 +108,16 @@ class CheckOracle < Sensu::Plugin::Check::CLI
   end
 
   def handle_connection
-    connection = OCI8.new(config[:username], config[:password], config[:database], config[:privilege])
+    session = SensuPluginsOracle::Session.new(
+      username: config[:username],
+      password: config[:password],
+      database: config[:database],
+      privilege: config[:privilege])
 
-    ok "Server version: #{connection.oracle_server_version}"
-  rescue OCIError => e
-    critical "#{e.message.split("\n").first}"
-  ensure
-    connection.logoff if connection
+    if session.alive?
+      ok "Server version: #{session.server_version}"
+    else
+      critical session.error_message
+    end
   end
 end

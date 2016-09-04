@@ -27,6 +27,7 @@
 #   for details.
 #
 
+require 'sensu-plugins-oracle'
 require 'sensu-plugin/check/cli'
 require 'oci8'
 
@@ -62,24 +63,52 @@ class CheckOracle < Sensu::Plugin::Check::CLI
          long: '--file FILE'
 
   def run
+    # handle OCI8 properties
+    OCI8.properties[:connect_timeout] = config[:timeout].to_i if config[:timeout]
 
     if config[:file]
-      handle_file
+      handle_connections_from_file
     else
-      handle_single_connection
+      handle_connection
     end
-
   end
 
   private
 
-  def handle_file
-    unknown 'Not yet implemented'
+  def handle_connections_from_file
+    sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file])
+
+    sessions_total = sessions.size
+    sessions_alive = 0
+
+    thread_group = ThreadGroup.new
+    queue = Queue.new
+    mutex = Mutex.new
+
+    sessions.each do |session|
+      thread_group.add Thread.new {
+        if session.alive?
+          mutex.synchronize do
+            sessions_alive += 1
+          end
+        else
+          queue << session.error_message
+        end
+      }
+    end
+    thread_group.list.map &:join
+    sessions_critical = queue.size.times.map { queue.pop }
+
+    if sessions_total == sessions_alive
+      ok "All are alive (#{sessions_alive}/#{sessions_total})"
+    else
+      critical ["#{sessions_alive}/#{sessions_total} are alive", sessions_critical].flatten.join("\n - ")
+    end
+  rescue => e
+    unknown e.to_s
   end
 
-  def handle_single_connection
-    OCI8.properties[:connect_timeout] = config[:timeout].to_i if config[:timeout]
-
+  def handle_connection
     connection = OCI8.new(config[:username], config[:password], config[:database], config[:privilege])
 
     ok "Server version: #{connection.oracle_server_version}"

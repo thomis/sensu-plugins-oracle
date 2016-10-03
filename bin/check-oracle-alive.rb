@@ -17,7 +17,7 @@
 #   gem: ruby-oci8
 #
 # USAGE:
-#   ./check-oracle-alive.rb -u db_user -p db_pass -h db_host -d db
+#   ./check-oracle-alive.rb -u USERNAME -p PASSWORD -d DATABASE -P PRIVILEGE -T TIMEOUT -f FILE
 #
 # NOTES:
 #
@@ -30,7 +30,7 @@
 require 'sensu-plugins-oracle'
 require 'sensu-plugin/check/cli'
 
-class CheckOracle < Sensu::Plugin::Check::CLI
+class CheckOracleAlive < Sensu::Plugin::Check::CLI
   option :username,
          description: 'Oracle Username',
          short: '-u USERNAME',

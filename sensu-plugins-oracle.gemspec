@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.files                  = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
   s.homepage               = 'https://github.com/thomis/sensu-plugins-oracle'
   s.license                = 'MIT'
-  s.metadata               = { 'maintainer'         => '@tas50',
+  s.metadata               = { 'maintainer'         => 'thomis',
                                'development_status' => 'active',
                                'production_status'  => 'unstable - testing recommended',
                                'release_draft'      => 'false',
@@ -36,10 +36,12 @@ Gem::Specification.new do |s|
   s.version                = SensuPluginsOracle::Version::VER_STRING
 
   s.add_runtime_dependency 'sensu-plugin', '~> 1.4'
-  s.add_runtime_dependency 'ruby-oci8',     '2.2.2'
+  s.add_runtime_dependency 'ruby-oci8', '~> 2.2.2'
+  s.add_runtime_dependency 'dentaku', '~> 2.0.9'
 
-  s.add_development_dependency 'bundler',                   '~> 1.7'
-  s.add_development_dependency 'rake',                      '~> 11.2'
-  s.add_development_dependency 'pry',                       '~> 0.10'
-  s.add_development_dependency 'rspec',                     '~> 3.1'
+  s.add_development_dependency 'bundler', '~> 1.7'
+  s.add_development_dependency 'rake', '~> 11.2'
+  s.add_development_dependency 'pry',  '~> 0.10'
+  s.add_development_dependency 'rspec', '~> 3.1'
+  s.add_development_dependency 'codeclimate-test-reporter', '~> 0.6.0'
 end

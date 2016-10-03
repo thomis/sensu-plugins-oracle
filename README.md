@@ -15,7 +15,7 @@ This sensu plugin provides native Oracle instrumentation.
   ```
   check-oracle-alive.rb -u scott -p tiger -d hr
 
-  check-oracle-alive.rb -u scott -p tiger -d ht -T 30
+  check-oracle-alive.rb -u scott -p tiger -d hr -T 30
   ```
 
   ```
@@ -27,6 +27,14 @@ This sensu plugin provides native Oracle instrumentation.
 
   # test connection
   example_connection_2,scott/tiger@hr_test
+  ```
+
+  ```
+  -- check for invalid objects in a schema, show type and name if there are invalid objects (-s), define a ciritical boundary only (-c)
+  check-oracle-query.rb -u scott -p tiger -d hr -t -s -query "select object_type, object_name from user_objects where status = 'INVALID'" -c 'value > 0'
+
+  -- same as above but check for all connections in a file
+  check-oracle-query.rb -f connections.csv -t -s -query "select object_type, object_name from user_objects where status = 'INVALID'" -c 'value > 0'
 
   ```
 

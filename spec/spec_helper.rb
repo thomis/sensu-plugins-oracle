@@ -14,6 +14,10 @@
 #
 # The `.rspec` file also contains a few flags that are not defaults but that
 # users commonly want.
+# ENV['CODECLIMATE_REPO_TOKEN'] = '1515334dd8715c98ce5c87d4badfa5591e08a19acac5c06c393ed30159a0144b'
+# require "codeclimate-test-reporter"
+# CodeClimate::TestReporter.start
+
 require_relative '../lib/sensu-plugins-oracle'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration

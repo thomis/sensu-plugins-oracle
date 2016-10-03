@@ -79,14 +79,11 @@ module SensuPluginsOracle
 
       calc = Dentaku::Calculator.new
 
-      case
-      when config[:critical] && calc.evaluate(config[:critical], value: value)
-        return :critical, show(config[:show])
-      when config[:warning] && calc.evaluate(config[:warning], value: value)
-        return :warning, show(config[:show])
-      else
-        return :ok, show(config[:show])
-      end
+      method = :ok
+      method = :warning if config[:warning] && calc.evaluate(config[:warning], value: value)
+      method = :critical if config[:critical] && calc.evaluate(config[:critical], value: value)
+
+      return method, show(config[:show])
     end
 
     private

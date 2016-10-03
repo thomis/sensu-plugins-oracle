@@ -8,25 +8,29 @@
 This sensu plugin provides native Oracle instrumentation.
 
 ## Files
- * bin/check-oracle-alive.rb
+  * bin/check-oracle-alive.rb
+  * bin/check-oracle-query.rb
 
 ## Usage
 
   ```
+  -- check a single connection
   check-oracle-alive.rb -u scott -p tiger -d hr
 
+  -- check a single connection with timeout
   check-oracle-alive.rb -u scott -p tiger -d hr -T 30
   ```
 
   ```
+  -- check multiple connections as defined in a file
   check-oracle-alive.rb -f connections.csv
 
   > cat connections.csv
-  # production connection
-  example_connection_1,scott/tiger@hr
+    # production connection
+    example_connection_1,scott/tiger@hr
 
-  # test connection
-  example_connection_2,scott/tiger@hr_test
+    # test connection
+    example_connection_2,scott/tiger@hr_test
   ```
 
   ```

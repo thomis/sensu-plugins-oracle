@@ -159,11 +159,12 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     messages = [header.join(', ')]
 
     [:warning, :critical].each do |type|
-    if results[type].size > 0
-      method = type
-      messages << nil
-      messages << type.to_s.capitalize
-      messages << results[type].compact.sort.join("\n\n")
+      if results[type].size > 0
+        method = type
+        messages << nil
+        messages << type.to_s.capitalize
+        messages << results[type].compact.sort.join("\n\n")
+      end
     end
 
     send(method, messages.join("\n"))

@@ -78,9 +78,15 @@ module SensuPluginsOracle
       value = @rows[0][0].to_f if @rows[0] && !config[:tuples]
 
       calc = Dentaku::Calculator.new
-      return :critical, show(config[:show]) if config[:critical] && calc.evaluate(config[:critical], value: value)
-      return :warning, show(config[:show]) if config[:warning] && calc.evaluate(config[:warning], value: value)
-      return :ok, show(config[:show])
+
+      case
+      when config[:critical] && calc.evaluate(config[:critical], value: value)
+        return :critical, show(config[:show])
+      when config[:warning] && calc.evaluate(config[:warning], value: value)
+        return :warning, show(config[:show])
+      else
+        return :ok, show(config[:show])
+      end
     end
 
     private

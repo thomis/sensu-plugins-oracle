@@ -61,7 +61,7 @@ module SensuPluginsOracle
       cursor = @connection.exec(query_string)
 
       @rows = []
-      while row = cursor.fetch
+      while (row = cursor.fetch)
         @rows << row
       end
       cursor.close

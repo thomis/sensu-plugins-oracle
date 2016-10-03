@@ -126,7 +126,6 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
   def handle_connections_from_file
     sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file])
 
-    sessions_total = sessions.size
     results = Hash.new { |h, key| h[key] = [] }
 
     thread_group = ThreadGroup.new
@@ -151,9 +150,6 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     thread_group.list.map(&:join)
 
     # return summary plus warning and critical messages
-    sessions_ok = results[:ok].size
-
-    # default values
     method = :ok
     header = ["Total: #{sessions.size}"]
     header << "Ok: #{results[:ok].size}" if results[:ok].size > 0

@@ -3,7 +3,6 @@
 #   check-oracle-alive
 #
 # DESCRIPTION:
-#
 #   This plugin attempts to login to oracle with provided credentials.
 #
 # OUTPUT:

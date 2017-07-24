@@ -1,3 +1,8 @@
+## 0.4.1 - 2017-07-24
+
+Bug Fixes:
+- read permission of command files
+
 ## 0.4.0 - 2017-07-24
 
 Major:

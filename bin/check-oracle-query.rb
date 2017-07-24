@@ -96,7 +96,7 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
   def run
     # handle OCI8 properties
-    OCI8.properties[:connect_timeout] = config[:timeout].to_i if config[:timeout]
+    ::SensuPluginsOracle::Session.set_timeout_properties(config[:timeout])
 
     if config[:file]
       handle_connections_from_file

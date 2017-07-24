@@ -35,13 +35,13 @@ Gem::Specification.new do |s|
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
   s.version                = SensuPluginsOracle::Version::VER_STRING
 
-  s.add_runtime_dependency 'sensu-plugin', '~> 1.4.2'
-  s.add_runtime_dependency 'ruby-oci8', '~> 2.2.2'
-  s.add_runtime_dependency 'dentaku', '~> 2.0.9'
+  s.add_runtime_dependency 'sensu-plugin', '~> 2.1.0'
+  s.add_runtime_dependency 'ruby-oci8', '~> 2.2.4'
+  s.add_runtime_dependency 'dentaku', '~> 2.0.11'
 
-  s.add_development_dependency 'bundler', '~> 1.13.2'
-  s.add_development_dependency 'rake', '~> 11.3.0'
+  s.add_development_dependency 'bundler', '~> 1.15.3'
+  s.add_development_dependency 'rake', '~> 12.0.0'
   s.add_development_dependency 'pry',  '~> 0.10.4'
-  s.add_development_dependency 'rspec', '~> 3.5.0'
-  s.add_development_dependency 'codeclimate-test-reporter', '~> 0.6.0'
+  s.add_development_dependency 'rspec', '~> 3.6.0'
+  s.add_development_dependency 'codeclimate-test-reporter', '~> 1.0.8'
 end

@@ -86,6 +86,15 @@ module SensuPluginsOracle
       return method, show(config[:show])
     end
 
+    def self.set_timeout_properties(timeout)
+      return unless timeout
+      timeout = timeout.to_i
+      OCI8.properties[:tcp_connect_timeout] = timeout
+      OCI8.properties[:connect_timeout] = timeout
+      OCI8.properties[:send_timeout] = timeout
+      OCI8.properties[:recv_timeout] = timeout
+    end
+
     private
 
     def show(show_records=true)

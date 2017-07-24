@@ -1,3 +1,8 @@
+## 0.4.2 - 2017-07-24
+
+Bug Fixes:
+- Fix permissions of all files
+
 ## 0.4.1 - 2017-07-24
 
 Bug Fixes:

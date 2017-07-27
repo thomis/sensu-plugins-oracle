@@ -1,3 +1,10 @@
+## 0.5.0 - 2017-07-27
+
+Major:
+- Parallel processing with threads and queues, allow to define number of threads
+- Refactored code to remove doublication
+- Verbose output for thread processing
+
 ## 0.4.2 - 2017-07-24
 
 Bug Fixes:

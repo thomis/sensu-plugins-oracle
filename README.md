@@ -22,8 +22,8 @@ This sensu plugin provides native Oracle instrumentation.
   ```
 
   ```
-  -- check multiple connections as defined in a file
-  check-oracle-alive.rb -f connections.csv
+  -- check multiple connections as defined in a file, use 5 worker threads (-w 5) and verbose output (-v)
+  check-oracle-alive.rb -f connections.csv -w 5 -v
 
   > cat connections.csv
     # production connection

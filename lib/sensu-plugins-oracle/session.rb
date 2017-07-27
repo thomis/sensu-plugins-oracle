@@ -95,6 +95,33 @@ module SensuPluginsOracle
       OCI8.properties[:recv_timeout] = timeout
     end
 
+    def self.handle_multiple(args={})
+      queue_sessions = Queue.new
+
+      # feed the queue with sessions
+      args[:sessions].map{ |session| queue_sessions.push(session) }
+
+      # start worker threads and handle requested sessions
+      worker = (1..args[:config][:worker]).map do
+        Thread.new do
+          begin
+            while session = queue_sessions.pop(true)
+              start = Time.now
+              puts "Processing #{session.name} - Method: #{args[:method]}" if args[:config][:verbose]
+              if args[:method_arguments]
+                session.send(args[:method], args[:method_arguments])
+              else
+                session.send(args[:method])
+              end
+              puts "Done       #{session.name}, took #{ '%0.1f' % ((Time.now - start)*1000)} ms" if args[:config][:verbose]
+            end
+          rescue ThreadError
+          end
+        end
+      end
+      worker.map(&:join)
+    end
+
     private
 
     def show(show_records=true)

@@ -1,9 +1,9 @@
 #! /usr/bin/env ruby
 #
-#   check-oracle-alive
+#   check-oracle-query
 #
 # DESCRIPTION:
-#   This plugin attempts to login to oracle with provided credentials.
+#   This plugin attempts to execute defined query against provided connection credential(s).
 #
 # OUTPUT:
 #   plain text
@@ -16,7 +16,7 @@
 #   gem: ruby-oci8
 #
 # USAGE:
-#   ./check-oracle-alive.rb -u USERNAME -p PASSWORD -d DATABASE -P PRIVILEGE -T TIMEOUT -f FILE -q 'select foo from bar' -w 'value > 5' -c 'value > 10'
+#   ./check-oracle-query.rb -u USERNAME -p PASSWORD -d DATABASE -P PRIVILEGE -T TIMEOUT -f FILE -q 'select foo from bar' -w 'value > 5' -c 'value > 10'
 #
 # NOTES:
 #
@@ -93,6 +93,20 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
          boolean: true,
          default: false
 
+  option :worker,
+         description: 'Number of worker threads to execute query against provided connections',
+         short: '-w WORKER',
+         long: '--worker WORKER',
+         default: 1,
+         :proc => Proc.new { |v| v.to_i == 0 ? 1 : v.to_i }
+
+  option :verbose,
+         description: 'Shows console log messages',
+         short: '-v',
+         long: '--verbose',
+         boolean: true,
+         default: false
+
   def run
     # handle OCI8 properties
     ::SensuPluginsOracle::Session.set_timeout_properties(config[:timeout])
@@ -124,29 +138,22 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
   def handle_connections_from_file
     sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file])
+    ::SensuPluginsOracle::Session.handle_multiple(
+      sessions: sessions,
+      method: :query,
+      method_arguments: config[:query].to_s,
+      config: config
+    )
 
     results = Hash.new { |h, key| h[key] = [] }
-
-    thread_group = ThreadGroup.new
-    mutex = Mutex.new
-
     sessions.each do |session|
-      thread_group.add Thread.new {
-
-        if session.query(config[:query].to_s)
-          method, message = session.handle_query_result(config)
-          mutex.synchronize do
-            results[method] << message
-          end
-        else
-          mutex.synchronize do
-            results[:critical] << session.error_message
-          end
-        end
-
-      }
+      if session.error_message
+        results[:critical] << session.error_message
+      else
+        method, message = session.handle_query_result(config)
+        results[method] << message
+      end
     end
-    thread_group.list.map(&:join)
 
     # return summary plus warning and critical messages
     method = :ok

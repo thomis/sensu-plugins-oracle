@@ -60,6 +60,20 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
          short: '-f FILE',
          long: '--file FILE'
 
+  option :worker,
+         description: 'Number of worker threads to check for alive connections',
+         short: '-w WORKER',
+         long: '--worker WORKER',
+         default: 1,
+         :proc => Proc.new { |v| v.to_i == 0 ? 1 : v.to_i }
+
+  option :verbose,
+         description: 'Shows console log messages',
+         short: '-v',
+         long: '--verbose',
+         boolean: true,
+         default: false
+
   def run
     # handle OCI8 properties
     ::SensuPluginsOracle::Session.set_timeout_properties(config[:timeout])
@@ -72,39 +86,6 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
   end
 
   private
-
-  def handle_connections_from_file
-    sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file])
-
-    sessions_total = sessions.size
-    sessions_alive = 0
-
-    thread_group = ThreadGroup.new
-    queue = Queue.new
-    mutex = Mutex.new
-
-    sessions.each do |session|
-      thread_group.add Thread.new {
-        if session.alive?
-          mutex.synchronize do
-            sessions_alive += 1
-          end
-        else
-          queue << session.error_message
-        end
-      }
-    end
-    thread_group.list.map(&:join)
-    sessions_critical = queue.size.times.map { queue.pop }
-
-    if sessions_total == sessions_alive
-      ok "All are alive (#{sessions_alive}/#{sessions_total})"
-    else
-      critical ["#{sessions_alive}/#{sessions_total} are alive", sessions_critical].flatten.join("\n - ")
-    end
-  rescue => e
-    unknown e.to_s
-  end
 
   def handle_connection
     session = SensuPluginsOracle::Session.new(
@@ -119,4 +100,32 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
       critical session.error_message
     end
   end
+
+  def handle_connections_from_file
+    sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file])
+    ::SensuPluginsOracle::Session.handle_multiple(
+      sessions: sessions,
+      method: :alive?,
+      config: config
+    )
+
+    errors = []
+    sessions.each do |session|
+      errors << session.error_message if session.error_message
+    end
+
+    sessions_total = sessions.size
+    errors_total = errors.size
+
+    if errors_total == 0
+      ok "All are alive (#{sessions_total}/#{sessions_total})"
+    else
+      critical ["#{sessions_total - errors_total}/#{sessions_total} are alive", errors].flatten.join("\n - ")
+    end
+
+  rescue => e
+    unknown e.to_s
+  end
+
+
 end

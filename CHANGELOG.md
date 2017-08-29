@@ -1,3 +1,11 @@
+## 0.6.0 - 2017-08-28
+
+Major:
+- Update to sensu-plugin 2.3
+
+Bug Fixes:
+- Fix colliding -w short option. Worker count short option is now -W (Thanks to https://github.com/aurelije)
+
 ## 0.5.0 - 2017-07-27
 
 Major:

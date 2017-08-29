@@ -101,6 +101,8 @@ module SensuPluginsOracle
       # feed the queue with sessions
       args[:sessions].map{ |session| queue_sessions.push(session) }
 
+      puts "Worker Threads: #{args[:config][:worker]}" if args[:config][:verbose]
+
       # start worker threads and handle requested sessions
       worker = (1..args[:config][:worker]).map do
         Thread.new do

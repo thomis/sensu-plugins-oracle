@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
   s.version                = SensuPluginsOracle::Version::VER_STRING
 
-  s.add_runtime_dependency 'sensu-plugin', '~> 2.1.0'
+  s.add_runtime_dependency 'sensu-plugin', '~> 2.3.0'
   s.add_runtime_dependency 'ruby-oci8', '~> 2.2.4'
   s.add_runtime_dependency 'dentaku', '~> 2.0.11'
 

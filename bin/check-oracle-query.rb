@@ -95,7 +95,7 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
   option :worker,
          description: 'Number of worker threads to execute query against provided connections',
-         short: '-w WORKER',
+         short: '-W WORKER',
          long: '--worker WORKER',
          default: 1,
          :proc => Proc.new { |v| v.to_i == 0 ? 1 : v.to_i }

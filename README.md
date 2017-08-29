@@ -22,8 +22,8 @@ This sensu plugin provides native Oracle instrumentation.
   ```
 
   ```
-  -- check multiple connections as defined in a file, use 5 worker threads (-w 5) and verbose output (-v)
-  check-oracle-alive.rb -f connections.csv -w 5 -v
+  -- check multiple connections as defined in a file, use 5 worker threads (-W 5) and verbose output (-v)
+  check-oracle-alive.rb -f connections.csv -W 5 -v
 
   > cat connections.csv
     # production connection
@@ -35,10 +35,10 @@ This sensu plugin provides native Oracle instrumentation.
 
   ```
   -- check for invalid objects in a schema, show type and name if there are invalid objects (-s), define a ciritical boundary only (-c)
-  check-oracle-query.rb -u scott -p tiger -d hr -t -s -query "select object_type, object_name from user_objects where status = 'INVALID'" -c 'value > 0'
+  check-oracle-query.rb -u scott -p tiger -d hr -t -s -query "select object_type, object_name from user_objects where status = 'INVALID'" -c "value > 0"
 
-  -- same as above but check for all connections in a file
-  check-oracle-query.rb -f connections.csv -t -s -query "select object_type, object_name from user_objects where status = 'INVALID'" -c 'value > 0'
+  -- same as above but check for all connections in a file, use 5 worker threads
+  check-oracle-query.rb -f connections.csv -t -s -query "select object_type, object_name from user_objects where status = 'INVALID'" -c "value > 0" -W 5
 
   ```
 

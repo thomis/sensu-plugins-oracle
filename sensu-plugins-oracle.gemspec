@@ -13,8 +13,7 @@ Gem::Specification.new do |s|
   s.authors                = ['Sensu-Plugins and contributors']
 
   s.date                   = Date.today.to_s
-  s.description            = 'This plugin provides native Oracle
-                              instrumentation.'
+  s.description            = 'This plugin provides native Oracle instrumentation.'
   s.email                  = '<thomas.steiner@ikey.ch>'
   s.executables            = Dir.glob('bin/**/*.rb').map { |file| File.basename(file) }
   s.files                  = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
@@ -36,12 +35,12 @@ Gem::Specification.new do |s|
   s.version                = SensuPluginsOracle::Version::VER_STRING
 
   s.add_runtime_dependency 'sensu-plugin', '~> 2.3.0'
-  s.add_runtime_dependency 'ruby-oci8', '~> 2.2.4'
-  s.add_runtime_dependency 'dentaku', '~> 2.0.11'
+  s.add_runtime_dependency 'ruby-oci8', '~> 2.2.4.1'
+  s.add_runtime_dependency 'dentaku', '~> 3.0.0'
 
   s.add_development_dependency 'bundler', '~> 1.15.3'
-  s.add_development_dependency 'rake', '~> 12.0.0'
-  s.add_development_dependency 'pry',  '~> 0.10.4'
+  s.add_development_dependency 'rake', '~> 12.1.0'
+  s.add_development_dependency 'pry',  '~> 0.11.1'
   s.add_development_dependency 'rspec', '~> 3.6.0'
   s.add_development_dependency 'codeclimate-test-reporter', '~> 1.0.8'
 end

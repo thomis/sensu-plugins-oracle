@@ -182,20 +182,18 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     unknown e.to_s
   end
 
+  # returns summary based on header and detailed (warning & critical) messages
   def summary(results, messages)
-    # return summary plus warning and critical messages
+    # header
     method = :ok
     header = ["Total: #{sessions.size}"]
-    header << "Ok: #{results[:ok].size}" unless results[:ok].empty?
-
-    message = "Warning: #{results[:warning].size}"
-    header << message unless results[:warning].empty?
-
-    message = "Critical: #{results[:critical].size}"
-    header << message unless results[:critical].empty?
-
+    [:ok, :warning, :critical].each do |type|
+      next if results[type].empty?
+      header << format("%s: %d", type.to_s.capitalize, results[type].size)
+    end
     messages = [header.join(', ')]
 
+    # warning and critical messages
     [:warning, :critical].each do |type|
       next if results[type].size <= 0
 

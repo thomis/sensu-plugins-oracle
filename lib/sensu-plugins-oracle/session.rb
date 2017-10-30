@@ -128,7 +128,7 @@ module SensuPluginsOracle
       return nil unless show_records
       buffer = []
       buffer << "#{@name} (#{@rows.size})" if @provide_name_in_result
-      buffer += @rows.map{ |row| '- ' + row.join(', ')}
+      buffer += @rows.map { |row| '- ' + row.join(', ')}
       buffer.join("\n")
     end
 

@@ -3,7 +3,8 @@
 #   check-oracle-query
 #
 # DESCRIPTION:
-#   This plugin attempts to execute defined query against provided connection credential(s).
+#   This plugin attempts to execute defined query against provided
+#   connection credential(s).
 #
 # OUTPUT:
 #   plain text

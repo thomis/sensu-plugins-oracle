@@ -37,7 +37,7 @@ describe SensuPluginsOracle::Session do
     it 'handles simple query results' do
       @session.rows = [[1]]
 
-      method, message = @session.handle_query_result({show: true})
+      method, message = @session.handle_query_result(show: true)
       expect(method).to eq(:ok)
       expect(message).to eq('- 1')
     end
@@ -45,7 +45,7 @@ describe SensuPluginsOracle::Session do
     it 'handles simple query results with tuples' do
       @session.rows = [[1]]
 
-      method, message = @session.handle_query_result({show: true, tuples: true})
+      method, message = @session.handle_query_result(show: true, tuples: true)
       expect(method).to eq(:ok)
       expect(message).to eq('- 1')
     end
@@ -53,7 +53,7 @@ describe SensuPluginsOracle::Session do
     it 'handles simple query results with critical formula' do
       @session.rows = [[1]]
 
-      method, message = @session.handle_query_result({show: true, critical: 'value > 0'})
+      method, message = @session.handle_query_result(show: true, critical: 'value > 0')
       expect(method).to eq(:critical)
       expect(message).to eq('- 1')
     end
@@ -61,7 +61,7 @@ describe SensuPluginsOracle::Session do
     it 'handles simple query results with tuples and warning formula' do
       @session.rows = [[1]]
 
-      method, message = @session.handle_query_result({show: true, tuples: true, warning: 'value > 0'})
+      method, message = @session.handle_query_result(show: true, tuples: true, warning: 'value > 0')
       expect(method).to eq(:warning)
       expect(message).to eq('- 1')
     end
@@ -70,7 +70,7 @@ describe SensuPluginsOracle::Session do
       session = SensuPluginsOracle::Session.new(connect_string: "a/b@c", name: 'a_name', provide_name_in_result: true)
       session.rows = [[1,2]]
 
-      method, message = session.handle_query_result({show: true, tuples: true, critical: 'value > 0'})
+      method, message = session.handle_query_result(show: true, tuples: true, critical: 'value > 0')
       expect(method).to eq(:critical)
       expect(message).to eq("a_name (1)\n- 1, 2")
     end

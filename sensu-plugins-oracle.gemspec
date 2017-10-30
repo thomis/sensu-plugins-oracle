@@ -39,8 +39,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'dentaku', '~> 3.0.0'
 
   s.add_development_dependency 'bundler', '~> 1.15.3'
-  s.add_development_dependency 'rake', '~> 12.1.0'
+  s.add_development_dependency 'rake', '~> 12.2.1'
   s.add_development_dependency 'pry',  '~> 0.11.1'
-  s.add_development_dependency 'rspec', '~> 3.6.0'
+  s.add_development_dependency 'rspec', '~> 3.7.0'
   s.add_development_dependency 'codeclimate-test-reporter', '~> 1.0.8'
 end

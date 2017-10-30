@@ -96,6 +96,10 @@ module SensuPluginsOracle
     end
 
     def self.handle_multiple(args={})
+      # catch any error thrown within a thread during join call
+      Thread.abort_on_exception = true
+
+      # queue with sesssion
       queue_sessions = Queue.new
 
       # feed the queue with sessions
@@ -106,18 +110,16 @@ module SensuPluginsOracle
       # start worker threads and handle requested sessions
       worker = (1..args[:config][:worker]).map do
         Thread.new do
-          begin
-            while session = queue_sessions.pop(true)
-              start = Time.now
-              puts "Processing #{session.name} - Method: #{args[:method]}" if args[:config][:verbose]
-              if args[:method_arguments]
-                session.send(args[:method], args[:method_arguments])
-              else
-                session.send(args[:method])
-              end
-              puts "Done       #{session.name}, took #{ '%0.1f' % ((Time.now - start)*1000)} ms" if args[:config][:verbose]
+          until queue_sessions.empty?
+            session = queue_sessions.pop(true)
+            start = Time.now
+            puts "Processing #{session.name} - Method: #{args[:method]}" if args[:config][:verbose]
+            if args[:method_arguments]
+              session.send(args[:method], args[:method_arguments])
+            else
+              session.send(args[:method])
             end
-          rescue ThreadError
+            puts "Done       #{session.name}, took #{ '%0.1f' % ((Time.now - start)*1000)} ms" if args[:config][:verbose]
           end
         end
       end

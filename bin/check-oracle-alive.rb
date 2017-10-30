@@ -105,7 +105,8 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
       username: config[:username],
       password: config[:password],
       database: config[:database],
-      privilege: config[:privilege])
+      privilege: config[:privilege]
+    )
 
     if session.alive?
       ok "Server version: #{session.server_version}"
@@ -126,7 +127,7 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
     sessions_total = sessions.size
     errors_total = errors.size
 
-    if errors_total == 0
+    if errors_total.zero?
       ok "All are alive (#{sessions_total}/#{sessions_total})"
     else
       critical ["#{sessions_total - errors_total}/#{sessions_total} are alive", errors].flatten.join("\n - ")
@@ -135,5 +136,4 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
   rescue => e
     unknown e.to_s
   end
-
 end

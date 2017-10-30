@@ -121,8 +121,8 @@ module SensuPluginsOracle
             start = Time.now
             message = "Processing #{session.name} - Method: #{args[:method]}"
             puts message if args[:config][:verbose]
-            if args[:method_arguments]
-              session.send(args[:method], args[:method_arguments])
+            if args[:method_args]
+              session.send(args[:method], args[:method_args])
             else
               session.send(args[:method])
             end

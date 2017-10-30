@@ -160,7 +160,7 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     ::SensuPluginsOracle::Session.handle_multiple(sessions: sessions,
                                                   method: :query,
                                                   config: config,
-                                                  method_arguments: config[:query].to_s)
+                                                  method_args: config[:query].to_s)
 
     results = Hash.new { |h, key| h[key] = [] }
     sessions.each do |session|
@@ -189,7 +189,7 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
     [:ok, :warning, :critical].each do |type|
       next if results[type].empty?
-      header << format("%s: %d", type.to_s.capitalize, results[type].size)
+      header << format('%s: %d', type.to_s.capitalize, results[type].size)
 
       next if type == :ok
 

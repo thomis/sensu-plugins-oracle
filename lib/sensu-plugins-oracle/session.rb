@@ -91,7 +91,7 @@ module SensuPluginsOracle
       OCI8.properties[:recv_timeout] = timeout
     end
 
-    def self.handle_multiple(args={})
+    def self.handle_multiple(args = {})
       # catch any error thrown within a thread during join call
       Thread.abort_on_exception = true
 
@@ -124,7 +124,7 @@ module SensuPluginsOracle
 
     private
 
-    def show(show_records=true)
+    def show(show_records = true)
       return nil unless show_records
       buffer = []
       buffer << "#{@name} (#{@rows.size})" if @provide_name_in_result

@@ -48,7 +48,8 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
          long: '--database DATABASE'
 
   option :privilege,
-         description: 'Connect to Oracle database by optional priviledge (SYSDBA, SYSOPER, SYSASM,  , SYSDG or SYSKM)',
+         description: 'Connect to Oracle database by optional priviledge' \
+                      ' (SYSDBA, SYSOPER, SYSASM,  , SYSDG or SYSKM)',
          short: '-P PRIVILEGE',
          long: '--privilege PRIVILEGE'
 
@@ -63,7 +64,8 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
          long: '--file FILE'
 
   option :worker,
-         description: 'Number of worker threads to check for alive connections',
+         description: 'Number of worker threads to check' \
+                      ' for alive connections',
          short: '-W WORKER',
          long: '--worker WORKER',
          default: 1,

@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
   s.files = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
   s.homepage = 'https://github.com/thomis/sensu-plugins-oracle'
   s.license = 'MIT'
-  s.metadata = { 'maintainer' => 'thomis',
+  s.metadata = {
+                 'maintainer' => 'thomis',
                  'development_status' => 'active',
                  'production_status'  => 'unstable - testing recommended',
                  'release_draft'      => 'false',

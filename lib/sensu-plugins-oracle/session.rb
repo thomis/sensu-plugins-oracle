@@ -75,7 +75,9 @@ module SensuPluginsOracle
     def handle_query_result(config={})
       # check if query is ok, warning, or critical
       value = @rows.size
-      value = @rows[0][0].to_f if @rows[0] && !config[:tuples]
+      if @rows[0] && !config[:tuples]
+        value = @rows[0][0].to_f
+      end
 
       calc = Dentaku::Calculator.new
 

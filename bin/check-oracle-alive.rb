@@ -104,12 +104,10 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
   private
 
   def handle_connection
-    session = SensuPluginsOracle::Session.new(
-      username: config[:username],
-      password: config[:password],
-      database: config[:database],
-      privilege: config[:privilege]
-    )
+    session = SensuPluginsOracle::Session.new(username: config[:username],
+                                              password: config[:password],
+                                              database: config[:database],
+                                              privilege: config[:privilege])
 
     if session.alive?
       ok "Server version: #{session.server_version}"

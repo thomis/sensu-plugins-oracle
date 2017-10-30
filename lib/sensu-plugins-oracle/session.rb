@@ -42,7 +42,9 @@ module SensuPluginsOracle
           line.strip!
           next if line.size.zero? || line =~ /^#/
           a = line.split(/:|,|;/)
-          sessions << Session.new(name: a[0], connect_string: a[1], provide_name_in_result: true)
+          sessions << Session.new(name: a[0],
+                                  connect_string: a[1],
+                                  provide_name_in_result: true)
         end
       end
 
@@ -117,7 +119,8 @@ module SensuPluginsOracle
           until queue_sessions.empty?
             session = queue_sessions.pop(true)
             start = Time.now
-            puts "Processing #{session.name} - Method: #{args[:method]}" if args[:config][:verbose]
+            message = "Processing #{session.name} - Method: #{args[:method]}"
+            puts message if args[:config][:verbose]
             if args[:method_arguments]
               session.send(args[:method], args[:method_arguments])
             else

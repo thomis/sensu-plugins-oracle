@@ -159,11 +159,19 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
       if session.error_message
         results[:critical] << session.error_message
       else
-        method, message = session.handle_query_result(config)
-        results[method] << message
+        type, message = session.handle_query_result(config)
+        results[type] << message
       end
     end
 
+    method, messages = summary(results, sessions)
+
+    send(method, messages.join("\n"))
+  rescue => e
+    unknown e.to_s
+  end
+
+  def summary(results, messages)
     # return summary plus warning and critical messages
     method = :ok
     header = ["Total: #{sessions.size}"]
@@ -182,9 +190,7 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
       end
     end
 
-    send(method, messages.join("\n"))
-  rescue => e
-    unknown e.to_s
+    return method, messages
   end
 
 end

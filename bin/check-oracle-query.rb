@@ -175,7 +175,7 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
       end
     end
 
-    method, messages = summary(results, sessions)
+    method, messages = summary(results, sessions.size)
 
     send(method, messages.join("\n"))
   rescue => e
@@ -183,26 +183,25 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
   end
 
   # returns summary based on header and detailed (warning & critical) messages
-  def summary(results, messages)
+  def summary(results, session_count)
     # header
     method = :ok
-    header = ["Total: #{sessions.size}"]
+    header = ["Total: #{session_count}"]
+    messages = []
+
     [:ok, :warning, :critical].each do |type|
       next if results[type].empty?
       header << format("%s: %d", type.to_s.capitalize, results[type].size)
-    end
-    messages = [header.join(', ')]
 
-    # warning and critical messages
-    [:warning, :critical].each do |type|
-      next if results[type].size <= 0
+      next if type == :ok
 
       method = type
       messages << nil
       messages << type.to_s.capitalize
       messages << results[type].compact.sort.join("\n\n")
     end
+    messages = [header.join(', ')]
 
-    [method, messages]
+    [method, [header.join(', '), messages]]
   end
 end

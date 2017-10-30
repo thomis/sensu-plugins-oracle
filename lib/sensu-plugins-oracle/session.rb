@@ -20,6 +20,9 @@ module SensuPluginsOracle
       :SYSKM
     ].freeze
 
+    # catch any error thrown within a thread during join call
+    Thread.abort_on_exception = true
+
     def initialize(args)
       @name = args[:name]
       @error_message = nil
@@ -100,9 +103,6 @@ module SensuPluginsOracle
     end
 
     def self.handle_multiple(args = {})
-      # catch any error thrown within a thread during join call
-      Thread.abort_on_exception = true
-
       # queue with sesssion
       queue_sessions = Queue.new
 

@@ -33,8 +33,8 @@ require 'sensu-plugin/check/cli'
 class CheckOracleAlive < Sensu::Plugin::Check::CLI
   option :username,
     description: 'Oracle Username',
-    short: '-u USERNAME',
-    long: '--username USERNAME'
+    short:       '-u USERNAME',
+    long:        '--username USERNAME'
 
   option :password,
     description: 'Oracle Password',

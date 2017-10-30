@@ -189,16 +189,12 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
     headers << "Ok: #{results[:ok].size}" unless results[:ok].empty?
 
-    unless results[:warning].empty?
-      method = :warning
-      headers << "Warning: #{results[:warning].size}"
-      messages << ['Warning', results[:warning].compact.sort.join("\n\n")]
-    end
-
-    unless resultsp[:critical].empty?
-      method = :critical
-      headers << "Critical: #{results[:critical].size}"
-      messages << ['Critical', results[:critical].compact.sort.join("\n\n")]
+    [:warning, :critical].each do |type|
+      next if results[type].empty?
+      method = type
+      label = type.to_s.capitalize
+      headers << "#{label}: #{results[type].size}"
+      messages << [label, results[type].compact.sort.join("\n\n")]
     end
 
     [method, [headers, messages].flatten]

@@ -120,7 +120,9 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
 
   def handle_connections_from_file
     sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file])
-    ::SensuPluginsOracle::Session.handle_multiple(sessions: sessions, method: :alive?, config: config)
+    ::SensuPluginsOracle::Session.handle_multiple( sessions: sessions,
+                                                   method: :alive?,
+                                                   config: config )
 
     errors = []
     sessions.each do |session|

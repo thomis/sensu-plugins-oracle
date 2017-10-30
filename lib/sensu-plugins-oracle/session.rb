@@ -34,7 +34,7 @@ module SensuPluginsOracle
       File.open(file) do |input|
         input.each_line do |line|
           line.strip!
-          next if line.zero? || line =~ /^#/
+          next if line.size.zero? || line =~ /^#/
           a = line.split(/:|,|;/)
           sessions << Session.new(name: a[0], connect_string: a[1], provide_name_in_result: true)
         end
@@ -115,7 +115,7 @@ module SensuPluginsOracle
             else
               session.send(args[:method])
             end
-            puts "Done       #{session.name}, took #{ '%0.1f' % ((Time.now - start)*1000)} ms" if args[:config][:verbose]
+            puts "Done       #{session.name}, took #{ sprintf('%0.1f', (Time.now - start) * 1000)} ms" if args[:config][:verbose]
           end
         end
       end

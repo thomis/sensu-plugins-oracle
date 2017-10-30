@@ -75,15 +75,9 @@ module SensuPluginsOracle
     def handle_query_result(config={})
       # check if query is ok, warning, or critical
       value = @rows.size
-      if @rows[0] && !config[:tuples]
-        value = @rows[0][0].to_f
-      end
+      value = @rows[0][0].to_f if @rows[0] && !config[:tuples]
 
-      calc = Dentaku::Calculator.new
-
-      method = :ok
-      method = :warning if config[:warning] && calc.evaluate(config[:warning], value: value)
-      method = :critical if config[:critical] && calc.evaluate(config[:critical], value: value)
+      method = evaluate(config, value)
 
       return method, show(config[:show])
     end
@@ -136,6 +130,16 @@ module SensuPluginsOracle
       buffer << "#{@name} (#{@rows.size})" if @provide_name_in_result
       buffer += @rows.map{ |row| '- ' + row.join(', ')}
       buffer.join("\n")
+    end
+
+    def evaluate(config, value)
+      calc = Dentaku::Calculator.new
+
+      method = :ok
+      method = :warning if config[:warning] && calc.evaluate(config[:warning], value: value)
+      method = :critical if config[:critical] && calc.evaluate(config[:critical], value: value)
+
+      method
     end
 
     def connect

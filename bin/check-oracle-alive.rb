@@ -67,7 +67,7 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
          short: '-W WORKER',
          long: '--worker WORKER',
          default: 1,
-         proc: Proc.new { |v| v.to_i.zero? ? 1 : v.to_i }
+         proc: proc { |v| v.to_i.zero? ? 1 : v.to_i }
 
   option :verbose,
          description: 'Shows console log messages',

@@ -2,7 +2,6 @@ require 'dentaku'
 
 module SensuPluginsOracle
   class Session
-
     attr_reader :name, :error_message
     attr_reader :connect_string
     attr_reader :username, :password, :database, :priviledge

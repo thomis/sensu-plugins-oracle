@@ -98,7 +98,7 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
          short: '-W WORKER',
          long: '--worker WORKER',
          default: 1,
-         proc: Proc.new { |v| v.to_i.zero? ? 1 : v.to_i }
+         proc: proc { |v| v.to_i.zero? ? 1 : v.to_i }
 
   option :verbose,
          description: 'Shows console log messages',
@@ -179,9 +179,9 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     # return summary plus warning and critical messages
     method = :ok
     header = ["Total: #{sessions.size}"]
-    header << "Ok: #{results[:ok].size}" if results[:ok].size > 0
-    header << "Warning: #{results[:warning].size}" if results[:warning].size > 0
-    header << "Critical: #{results[:critical].size}" if results[:critical].size > 0
+    header << "Ok: #{results[:ok].size}" unless results[:ok].empty?
+    header << "Warning: #{results[:warning].size}" unless results[:warning].empty?
+    header << "Critical: #{results[:critical].size}" unless results[:critical]empty?
 
     messages = [header.join(', ')]
 

@@ -157,8 +157,14 @@ module SensuPluginsOracle
       calc = Dentaku::Calculator.new
 
       method = :ok
-      method = :warning if config[:warning] && calc.evaluate(config[:warning], value: value)
-      method = :critical if config[:critical] && calc.evaluate(config[:critical], value: value)
+
+      if config[:warning] && calc.evaluate(config[:warning], value: value)
+        method = :warning
+      end
+
+      if config[:critical] && calc.evaluate(config[:critical], value: value)
+        method = :critical
+      end
 
       method
     end

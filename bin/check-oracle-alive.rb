@@ -30,6 +30,7 @@
 require 'sensu-plugins-oracle'
 require 'sensu-plugin/check/cli'
 
+# Check Oracle Alive
 class CheckOracleAlive < Sensu::Plugin::Check::CLI
   option :username,
          description: 'Oracle Username',

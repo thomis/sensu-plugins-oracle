@@ -137,11 +137,12 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
       username: config[:username],
       password: config[:password],
       database: config[:database],
-      privilege: config[:privilege])
+      privilege: config[:privilege]
+    )
 
     if session.query(config[:query].to_s)
       method, message = session.handle_query_result(config)
-      self.send(method, message)
+      send(method, message)
     else
       # issue with the query
       critical session.error_message
@@ -185,15 +186,14 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     messages = [header.join(', ')]
 
     [:warning, :critical].each do |type|
-      if results[type].size > 0
-        method = type
-        messages << nil
-        messages << type.to_s.capitalize
-        messages << results[type].compact.sort.join("\n\n")
-      end
+      next if results[type].size <= 0
+
+      method = type
+      messages << nil
+      messages << type.to_s.capitalize
+      messages << results[type].compact.sort.join("\n\n")
     end
 
-    return method, messages
+    [method, messages]
   end
-
 end

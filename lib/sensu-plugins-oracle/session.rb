@@ -72,7 +72,7 @@ module SensuPluginsOracle
       return false
     end
 
-    def handle_query_result(config={})
+    def handle_query_result(config = {})
       # check if query is ok, warning, or critical
       value = @rows.size
       value = @rows[0][0].to_f if @rows[0] && !config[:tuples]

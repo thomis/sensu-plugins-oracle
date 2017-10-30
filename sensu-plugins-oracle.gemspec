@@ -19,11 +19,11 @@ Gem::Specification.new do |s|
   s.files = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
   s.homepage = 'https://github.com/thomis/sensu-plugins-oracle'
   s.license = 'MIT'
-  s.metadata = {'maintainer' => 'thomis',
-                'development_status' => 'active',
-                'production_status'  => 'unstable - testing recommended',
-                'release_draft'      => 'false',
-                'release_prerelease' => 'false'}
+  s.metadata = { 'maintainer' => 'thomis',
+                 'development_status' => 'active',
+                 'production_status'  => 'unstable - testing recommended',
+                 'release_draft'      => 'false',
+                 'release_prerelease' => 'false' }
   s.name = 'sensu-plugins-oracle'
   s.platform = Gem::Platform::RUBY
   s.post_install_message = 'You can use the embedded Ruby by setting EMBEDDED_RUBY=true in /etc/default/sensu'

@@ -187,23 +187,20 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     headers = ["Total: #{session_count}"]
     messages = []
 
-    if results[:ok].size > 0
-      headers << "Ok: #{results[:ok].size}"
-    end
+    headers << "Ok: #{results[:ok].size}" unless results[:ok].empty?
 
-    if results[:warning].size > 0
+    unless results[:warning].empty?
       method = :warning
       headers << "Warning: #{results[:warning].size}"
-      messages << ["Warning", results[:warning].compact.sort.join("\n\n")]
+      messages << ['Warning', results[:warning].compact.sort.join("\n\n")]
     end
 
-    if resultsp[:critical].size > 0
+    unless resultsp[:critical].empty?
       method = :critical
       headers << "Critical: #{results[:critical].size}"
-      messages << ["Critical", results[:critical].compact.sort.join("\n\n")]
+      messages << ['Critical', results[:critical].compact.sort.join("\n\n")]
     end
 
     [method, [headers, messages].flatten]
   end
-
 end

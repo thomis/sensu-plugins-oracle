@@ -150,11 +150,8 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
   def handle_connections_from_file
     sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file])
-    ::SensuPluginsOracle::Session.handle_multiple(
-      sessions: sessions,
-      method: :query,
-      method_arguments: config[:query].to_s,
-      config: config
+    ::SensuPluginsOracle::Session.handle_multiple(sessions: sessions, method: :query, config: config,
+      method_arguments: config[:query].to_s
     )
 
     results = Hash.new { |h, key| h[key] = [] }

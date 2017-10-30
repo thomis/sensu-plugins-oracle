@@ -48,7 +48,7 @@ module SensuPluginsOracle
       @server_version = @connection.oracle_server_version
       true
     rescue StandardError, OCIError => e
-      @error_message = [@name, e.message.split("\n").first].compact.join(": ")
+      @error_message = [@name, e.message.split("\n").first].compact.join(': ')
       false
     ensure
       disconnect
@@ -68,7 +68,7 @@ module SensuPluginsOracle
 
       return true
     rescue StandardError, OCIError => e
-      @error_message = [@name, e.message.split("\n").first].compact.join(": ")
+      @error_message = [@name, e.message.split("\n").first].compact.join(': ')
       return false
     end
 

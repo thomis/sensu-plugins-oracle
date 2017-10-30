@@ -135,11 +135,8 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
     if errors_total.zero?
       ok "All are alive (#{sessions_total}/#{sessions_total})"
     else
-      msg = [
-              "#{sessions_total - errors_total}/#{sessions_total} are alive",
-              errors
-            ].flatten.join("\n - ")
-      critical(msg)
+      message = "#{sessions_total - errors_total}/#{sessions_total} are alive"
+      critical([message, errors].flatten.join("\n - "))
     end
 
   rescue => e

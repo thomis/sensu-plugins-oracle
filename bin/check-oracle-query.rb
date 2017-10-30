@@ -166,8 +166,9 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
     results = Hash.new { |h, key| h[key] = [] }
     sessions.each do |session|
-      if session.error_message
-        results[:critical] << session.error_message
+      message = session.error_message
+      if message
+        results[:critical] << message
       else
         type, message = session.handle_query_result(config)
         results[type] << message

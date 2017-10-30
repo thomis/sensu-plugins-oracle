@@ -126,7 +126,8 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
 
     errors = []
     sessions.each do |session|
-      errors << session.error_message if session.error_message
+      message = session.error_message
+      errors << message if message
     end
 
     sessions_total = sessions.size

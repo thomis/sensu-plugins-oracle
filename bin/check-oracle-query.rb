@@ -184,20 +184,26 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
   def summary(results, session_count)
     # header
     method = :ok
-    header = ["Total: #{session_count}"]
+    headers = ["Total: #{session_count}"]
     messages = []
 
-    [:ok, :warning, :critical].each do |type|
-      next if results[type].empty?
-      header << format('%s: %d', type.to_s.capitalize, results[type].size)
-
-      next if type == :ok
-
-      method = type
-      messages << nil
-      messages << type.to_s.capitalize
-      messages << results[type].compact.sort.join("\n\n")
+    if results[:ok].size > 0
+      headers << "Ok: #{results[:ok].size}"
     end
-    [method, [header.join(', '), messages]]
+
+    if results[:warning].size > 0
+      method = :warning
+      headers << "Warning: #{results[:warning].size}"
+      messages << ["Warning", results[:warning].compact.sort.join("\n\n")]
+    end
+
+    if resultsp[:critical].size > 0
+      method = :critical
+      headers << "Critical: #{results[:critical].size}"
+      messages << ["Critical", results[:critical].compact.sort.join("\n\n")]
+    end
+
+    [method, [headers, messages].flatten]
   end
+
 end

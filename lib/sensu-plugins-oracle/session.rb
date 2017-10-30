@@ -11,7 +11,7 @@ module SensuPluginsOracle
 
     attr_accessor :rows
 
-    PRIVILEDGES = [:SYSDBA, :SYSOPER, :SYSASM, :SYSBACKUP, :SYSDG, :SYSKM]
+    PRIVILEDGES = [:SYSDBA, :SYSOPER, :SYSASM, :SYSBACKUP, :SYSDG, :SYSKM].freeze
 
     def initialize(args)
       @name = args[:name]
@@ -82,7 +82,7 @@ module SensuPluginsOracle
       [method, show(config[:show])]
     end
 
-    def self.set_timeout_properties(timeout)
+    def self.timeout_properties(timeout)
       return unless timeout
       timeout = timeout.to_i
       OCI8.properties[:tcp_connect_timeout] = timeout

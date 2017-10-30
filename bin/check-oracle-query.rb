@@ -116,7 +116,7 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
   def run
     # handle OCI8 properties
-    ::SensuPluginsOracle::Session.set_timeout_properties(config[:timeout])
+    ::SensuPluginsOracle::Session.timeout_properties(config[:timeout])
 
     if config[:version]
       ok("Version #{SensuPluginsOracle::Version::VER_STRING}")

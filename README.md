@@ -1,6 +1,6 @@
 
 [![Gem Version](https://badge.fury.io/rb/sensu-plugins-oracle.svg)](https://badge.fury.io/rb/sensu-plugins-oracle)
-[![Code Climate](https://codeclimate.com/github/thomis/sensu-plugins-oracle/badges/gpa.svg)](https://codeclimate.com/github/thomis/sensu-plugins-oracle)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a96aadf931c023673c49/maintainability)](https://codeclimate.com/github/thomis/sensu-plugins-oracle/maintainability)
 [![Dependency Status](https://gemnasium.com/badges/github.com/thomis/sensu-plugins-oracle.svg)](https://gemnasium.com/github.com/thomis/sensu-plugins-oracle)
 
 # sensu-plugins-oracle

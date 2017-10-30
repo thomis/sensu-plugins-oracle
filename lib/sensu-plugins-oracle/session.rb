@@ -40,15 +40,13 @@ module SensuPluginsOracle
     def self.parse_from_file(file)
       sessions = []
 
-      File.open(file) do |input|
-        input.each_line do |line|
-          line.strip!
-          next if line.size.zero? || line =~ /^#/
-          a = line.split(/:|,|;/)
-          sessions << Session.new(name: a[0],
-                                  connect_string: a[1],
-                                  provide_name_in_result: true)
-        end
+      File.read(file).each_line do |line|
+        line.strip!
+        next if line.size.zero? || line =~ /^#/
+        a = line.split(/:|,|;/)
+        sessions << Session.new(name: a[0],
+                                connect_string: a[1],
+                                provide_name_in_result: true)
       end
 
       sessions

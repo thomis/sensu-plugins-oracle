@@ -139,12 +139,10 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
   private
 
   def handle_connection
-    session = SensuPluginsOracle::Session.new(
-      username: config[:username],
-      password: config[:password],
-      database: config[:database],
-      privilege: config[:privilege]
-    )
+    session = SensuPluginsOracle::Session.new(username: config[:username],
+                                              password: config[:password],
+                                              database: config[:database],
+                                              privilege: config[:privilege])
 
     if session.query(config[:query].to_s)
       method, message = session.handle_query_result(config)

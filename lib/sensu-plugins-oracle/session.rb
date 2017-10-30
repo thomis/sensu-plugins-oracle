@@ -126,7 +126,10 @@ module SensuPluginsOracle
             else
               session.send(args[:method])
             end
-            puts format('Done       %s, took %0.1f ms', session.name, (Time.now - start) * 1000) if args[:config][:verbose]
+            message = format('Done       %s, took %0.1f ms',
+                             session.name,
+                             (Time.now - start) * 1000)
+            puts message if args[:config][:verbose]
           end
         end
       end

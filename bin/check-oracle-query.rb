@@ -160,7 +160,7 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     ::SensuPluginsOracle::Session.handle_multiple(sessions: sessions,
                                                   method: :query,
                                                   config: config,
-                                                  method_args: config[:query].to_s)
+                                                  method_args: config[:query])
 
     results = Hash.new { |h, key| h[key] = [] }
     sessions.each do |session|

@@ -11,7 +11,14 @@ module SensuPluginsOracle
 
     attr_accessor :rows
 
-    PRIVILEDGES = [:SYSDBA, :SYSOPER, :SYSASM, :SYSBACKUP, :SYSDG, :SYSKM].freeze
+    PRIVILEDGES = [
+      :SYSDBA,
+      :SYSOPER,
+      :SYSASM,
+      :SYSBACKUP,
+      :SYSDG,
+      :SYSKM
+    ].freeze
 
     def initialize(args)
       @name = args[:name]
@@ -23,7 +30,9 @@ module SensuPluginsOracle
       @username = args[:username]
       @password = args[:password]
       @database = args[:database]
-      @priviledge = args[:priviledge].upcase.to_sym if args[:priviledge] && PRIVILEDGES.include?(args[:priviledge].upcase.to_sym)
+      if args[:priviledge] && PRIVILEDGES.include?(args[:priviledge].upcase.to_sym)
+        @priviledge = args[:priviledge].upcase.to_sym
+      end
 
       @provide_name_in_result = args[:provide_name_in_result] || false
     end
@@ -101,7 +110,9 @@ module SensuPluginsOracle
       # feed the queue with sessions
       args[:sessions].map { |session| queue_sessions.push(session) }
 
-      puts "Worker Threads: #{args[:config][:worker]}" if args[:config][:verbose]
+      if args[:config][:verbose]
+        puts "Worker Threads: #{args[:config][:worker]}"
+      end
 
       # start worker threads and handle requested sessions
       worker = (1..args[:config][:worker]).map do

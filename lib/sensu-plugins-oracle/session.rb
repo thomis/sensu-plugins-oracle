@@ -1,6 +1,7 @@
 require 'dentaku'
 
 module SensuPluginsOracle
+  # Session to handle oracle checks
   class Session
     attr_reader :name, :error_message
     attr_reader :connect_string
@@ -33,13 +34,13 @@ module SensuPluginsOracle
       File.open(file) do |input|
         input.each_line do |line|
           line.strip!
-          next if line.size == 0 || line =~ /^#/
+          next if line.zero? || line =~ /^#/
           a = line.split(/:|,|;/)
           sessions << Session.new(name: a[0], connect_string: a[1], provide_name_in_result: true)
         end
       end
 
-      return sessions
+      sessions
     end
 
     def alive?
@@ -78,7 +79,7 @@ module SensuPluginsOracle
 
       method = evaluate(config, value)
 
-      return method, show(config[:show])
+      [method, show(config[:show])]
     end
 
     def self.set_timeout_properties(timeout)
@@ -155,6 +156,5 @@ module SensuPluginsOracle
       @connection.logoff if @connection
       @connection = nil
     end
-
   end
 end

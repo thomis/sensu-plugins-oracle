@@ -34,7 +34,7 @@ This sensu plugin provides native Oracle instrumentation.
   ```
 
   ```
-  -- check for invalid objects in a schema, show type and name if there are invalid objects (-s), define a ciritical boundary only (-c)
+  -- check for invalid objects in a schema, shows type and name if there are invalid objects (-s), define a ciritical boundary only (-c)
   check-oracle-query.rb -u scott -p tiger -d hr -t -s -query "select object_type, object_name from user_objects where status = 'INVALID'" -c "value > 0"
 
   -- same as above but check for all connections in a file, use 5 worker threads

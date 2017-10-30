@@ -22,8 +22,8 @@ Gem::Specification.new do |s|
   s.metadata = { 'maintainer' => 'thomis',
                  'development_status' => 'active',
                  'production_status'  => 'unstable - testing recommended',
-                  'release_draft'      => 'false',
-                  'release_prerelease' => 'false'
+                 'release_draft'      => 'false',
+                 'release_prerelease' => 'false'
                }
   s.name = 'sensu-plugins-oracle'
   s.platform = Gem::Platform::RUBY

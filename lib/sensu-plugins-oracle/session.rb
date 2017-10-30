@@ -30,10 +30,7 @@ module SensuPluginsOracle
       @username = args[:username]
       @password = args[:password]
       @database = args[:database]
-      if args[:priviledge] && PRIVILEDGES.include?(args[:priviledge].upcase.to_sym)
-        @priviledge = args[:priviledge].upcase.to_sym
-      end
-
+      @priviledge = validate_priviledge(args[:priviledge])
       @provide_name_in_result = args[:provide_name_in_result] || false
     end
 
@@ -134,6 +131,13 @@ module SensuPluginsOracle
     end
 
     private
+
+    def validate_priviledge(priviledge)
+      return nil unless priviledge
+      priviledge_symbol = priviledge.upcase.to_sym
+      return nil unless PRIVILEDGES.include?(priviledge_symbol)
+      priviledge_symbol
+    end
 
     def show(show_records = true)
       return nil unless show_records

@@ -17,7 +17,10 @@
 #   gem: ruby-oci8
 #
 # USAGE:
-#   ./check-oracle-query.rb -u USERNAME -p PASSWORD -d DATABASE -P PRIVILEGE -T TIMEOUT -f FILE -q 'select foo from bar' -w 'value > 5' -c 'value > 10'
+#   ./check-oracle-query.rb -u USERNAME -p PASSWORD -d DATABASE \
+#                           -P PRIVILEGE -T TIMEOUT -f FILE \
+#                           -q 'select foo from bar' \
+#                           -w 'value > 5' -c 'value > 10'
 #
 # NOTES:
 #
@@ -183,8 +186,8 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     method = :ok
     header = ["Total: #{sessions.size}"]
     header << "Ok: #{results[:ok].size}" unless results[:ok].empty?
-    header << "Warning: #{results[:warning].size}" unless results[:warning].empty?
-    header << "Critical: #{results[:critical].size}" unless results[:critical].empty?
+    header << "Warning: #{results[:warning].size}" if !results[:warning].empty?
+    header << "Critical: #{results[:critical].size}" if !results[:critical].empty?
 
     messages = [header.join(', ')]
 

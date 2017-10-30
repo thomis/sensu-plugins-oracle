@@ -16,7 +16,8 @@
 #   gem: ruby-oci8
 #
 # USAGE:
-#   ./check-oracle-alive.rb -u USERNAME -p PASSWORD -d DATABASE -P PRIVILEGE -T TIMEOUT -f FILE
+#   ./check-oracle-alive.rb -u USERNAME -p PASSWORD -d DATABASE \
+#       -P PRIVILEGE -T TIMEOUT -f FILE
 #
 # NOTES:
 #
@@ -65,7 +66,7 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
     short: '-W WORKER',
     long: '--worker WORKER',
     default: 1,
-    :proc => Proc.new { |v| v.to_i == 0 ? 1 : v.to_i }
+    proc: Proc.new { |v| v.to_i.zero? ? 1 : v.to_i }
 
   option :verbose,
     description: 'Shows console log messages',
@@ -134,6 +135,5 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
   rescue => e
     unknown e.to_s
   end
-
 
 end

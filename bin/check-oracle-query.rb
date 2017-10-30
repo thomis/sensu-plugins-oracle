@@ -157,12 +157,10 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
   def handle_connections_from_file
     sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file])
-    ::SensuPluginsOracle::Session.handle_multiple(
-      sessions: sessions,
-      method: :query,
-      config: config,
-      method_arguments: config[:query].to_s
-    )
+    ::SensuPluginsOracle::Session.handle_multiple(sessions: sessions,
+                                                  method: :query,
+                                                  config: config,
+                                                  method_arguments: config[:query].to_s)
 
     results = Hash.new { |h, key| h[key] = [] }
     sessions.each do |session|
@@ -200,8 +198,6 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
       messages << type.to_s.capitalize
       messages << results[type].compact.sort.join("\n\n")
     end
-    messages = [header.join(', ')]
-
     [method, [header.join(', '), messages]]
   end
 end

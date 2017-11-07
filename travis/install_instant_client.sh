@@ -4,7 +4,8 @@ if [ $TRAVIS_OS_NAME = "linux" ]
 then
   echo "Installing oracle instant client for linux..."
 
-elif [ $TRAVIS_OS_NAME = "osx" ] then
+elif [ $TRAVIS_OS_NAME = "osx" ]
+then
   echo "Installing oracle instant client for linux..."
 
 else

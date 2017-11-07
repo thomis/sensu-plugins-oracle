@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.version = SensuPluginsOracle::Version::VER_STRING
 
   s.add_runtime_dependency 'sensu-plugin', '~> 2.3.0'
-  s.add_runtime_dependency 'ruby-oci8', '~> 2.2.4.1'
+  s.add_runtime_dependency 'ruby-oci8', '~> 2.2.5'
   s.add_runtime_dependency 'dentaku', '~> 3.0.0'
 
   s.add_development_dependency 'bundler', '~> 1.16.0'

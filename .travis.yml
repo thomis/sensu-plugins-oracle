@@ -10,4 +10,4 @@ rvm:
   - 2.1.5
 before_install:
   - gem install bundler --version '~> 1.16.0'
-  - echo $TRAVIS_OS_NAME
+  - ./travis/install_instant_client.sh

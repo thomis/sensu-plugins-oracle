@@ -1,3 +1,9 @@
+## 0.8.0 - 2018-06-20
+
+Major:
+- Update to sensu-plugin 2.5
+- Update gem dependencies: dentaku, rake
+
 ## 0.6.0 - 2017-08-28
 
 Major:

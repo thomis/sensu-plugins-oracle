@@ -113,9 +113,7 @@ describe SensuPluginsOracle::Session do
     it 'handles invalid query' do
       expect(@session.query('select 1 from dual')).to eq(false)
       expect(@session.error_message).to eq('a_name: ORA-12154: TNS:could not resolve the connect identifier specified')
-
     end
-
   end
 
 end

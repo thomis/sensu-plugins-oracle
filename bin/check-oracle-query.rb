@@ -208,5 +208,4 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     return message if config[:limit].nil?
     message[0..config[:limit].to_i]
   end
-
 end

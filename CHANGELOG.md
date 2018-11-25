@@ -1,7 +1,7 @@
-## 0.9.0 - 2018-11-25
+## 0.9.1 - 2018-11-25
 
 Major:
-- Optional limitation of output text size
+- Optional limitation of output text size (alive and query)
 - Update to sensu-plugin 2.7
 - Update all gem dependencies
 

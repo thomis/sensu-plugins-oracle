@@ -71,6 +71,12 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
          default: 1,
          proc: proc { |v| v.to_i.zero? ? 1 : v.to_i }
 
+  option :limit,
+         description: 'Limits output size in characters',
+         short: '-l SIZE',
+         long: '--limit SIZE',
+         default: nil
+
   option :verbose,
          description: 'Shows console log messages',
          short: '-V',
@@ -112,7 +118,7 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
     if session.alive?
       ok "Server version: #{session.server_version}"
     else
-      critical session.error_message
+      critical limit(session.error_message)
     end
   end
 
@@ -135,10 +141,15 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
       ok "All are alive (#{sessions_total}/#{sessions_total})"
     else
       message = "#{sessions_total - errors_total}/#{sessions_total} are alive"
-      critical([message, errors].flatten.join("\n - "))
+      critical(limit([message, errors].flatten.join("\n - ")))
     end
 
   rescue => e
-    unknown e.to_s
+    unknown limit(e.to_s)
+  end
+
+  def limit(message)
+    return message if config[:limit].nil?
+    message[0..config[:limit].to_i]
   end
 end

@@ -106,6 +106,12 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
          default: 1,
          proc: proc { |v| v.to_i.zero? ? 1 : v.to_i }
 
+  option :limit,
+         description: 'Limits output size in characters',
+         short: '-l SIZE',
+         long: '--limit SIZE',
+         default: nil
+
   option :verbose,
          description: 'Shows console log messages',
          short: '-V',
@@ -146,10 +152,10 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
     if session.query(config[:query].to_s)
       method, message = session.handle_query_result(config)
-      send(method, message)
+      send(method, limit(message))
     else
       # issue with the query
-      critical session.error_message
+      critical limit(session.error_message)
     end
   end
 
@@ -173,9 +179,9 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
     method, messages = summary(results, sessions.size)
 
-    send(method, messages.join("\n"))
+    send(method, limit(messages.join("\n")))
   rescue => e
-    unknown e.to_s
+    unknown limit(e.to_s)
   end
 
   # returns summary based on header and detailed (warning & critical) messages
@@ -197,4 +203,10 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
 
     [method, [headers, messages].flatten]
   end
+
+  def limit(message)
+    return message if config[:limit].nil?
+    message[0..config[:limit].to_i]
+  end
+
 end

@@ -184,7 +184,7 @@ module SensuPluginsOracle
       if ! @module
         return
       @connection.exec("call DBMS_APPLICATION_INFO.SET_MODULE ('%s', null)" % @module.to_s)
-
+    end
 
     def disconnect
       @connection.logoff if @connection

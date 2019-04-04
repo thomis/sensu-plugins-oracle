@@ -5,7 +5,7 @@ module SensuPluginsOracle
   class Session
     attr_reader :name, :error_message
     attr_reader :connect_string
-    attr_reader :username, :password, :database, :priviledge
+    attr_reader :username, :password, :database, :module, :priviledge
 
     attr_reader :server_version
 
@@ -34,6 +34,7 @@ module SensuPluginsOracle
       @password = args[:password]
       @database = args[:database]
       @priviledge = validate_priviledge(args[:priviledge])
+      @module = args[:module]
       @provide_name_in_result = args[:provide_name_in_result] || false
     end
 
@@ -175,7 +176,15 @@ module SensuPluginsOracle
       else
         @connection = OCI8.new(@connect_string.to_s)
       end
+
+      set_session_module
     end
+
+    def set_session_module
+      if ! @module
+        return
+      @connection.exec("call DBMS_APPLICATION_INFO.SET_MODULE ('%s', null)" % @module.to_s)
+
 
     def disconnect
       @connection.logoff if @connection

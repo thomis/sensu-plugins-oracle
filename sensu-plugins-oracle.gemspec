@@ -2,12 +2,7 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'date'
-
-if RUBY_VERSION < '0.0.1'
-  require 'sensu-plugins-oracle'
-else
-  require_relative 'lib/sensu-plugins-oracle'
-end
+require 'sensu-plugins-oracle'
 
 Gem::Specification.new do |s|
   s.authors = ['Sensu-Plugins and contributors']

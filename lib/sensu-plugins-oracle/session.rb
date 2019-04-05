@@ -1,5 +1,3 @@
-require 'dentaku'
-
 module SensuPluginsOracle
   # Session to handle oracle checks
   class Session

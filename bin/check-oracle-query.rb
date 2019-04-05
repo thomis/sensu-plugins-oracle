@@ -131,7 +131,7 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     ::SensuPluginsOracle::Session.timeout_properties(config[:timeout])
 
     if config[:version]
-      ok("Version #{SensuPluginsOracle::Version::VER_STRING}")
+      ok("Version #{SensuPluginsOracle::VERSION::VER_STRING}")
       return
     end
 

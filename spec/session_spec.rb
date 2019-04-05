@@ -3,16 +3,13 @@ require 'spec_helper'
 describe SensuPluginsOracle::Session do
 
   context 'general' do
-
     it 'has a version' do
       expect(SensuPluginsOracle::VERSION).not_to eq(nil)
       expect(SensuPluginsOracle::VERSION.split('.').size).to eq(3)
     end
-
   end
 
   context 'connect string' do
-
     before(:each) do
       @session = SensuPluginsOracle::Session.new(connect_string: "a/b@c", name: 'a_name')
     end

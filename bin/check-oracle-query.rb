@@ -50,9 +50,9 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
          short: '-d DATABASE',
          long: '--database DATABASE'
 
-  option :module
-         description: 'Module that the oracle sessions will use'
-         short: '-m'
+  option :module,
+         description: 'Module that the oracle sessions will use',
+         short: '-m',
          long: '--module MODULE'
 
   option :privilege,
@@ -166,7 +166,8 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
   end
 
   def handle_connections_from_file
-    sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file])
+    sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file],
+                                                             config[:module])
     ::SensuPluginsOracle::Session.handle_multiple(sessions: sessions,
                                                   method: :query,
                                                   config: config,

@@ -38,7 +38,7 @@ module SensuPluginsOracle
       @provide_name_in_result = args[:provide_name_in_result] || false
     end
 
-    def self.parse_from_file(file)
+    def self.parse_from_file(file, db_module)
       sessions = []
 
       File.read(file).each_line do |line|
@@ -47,7 +47,8 @@ module SensuPluginsOracle
         a = line.split(/:|,|;/)
         sessions << Session.new(name: a[0],
                                 connect_string: a[1],
-                                provide_name_in_result: true)
+                                provide_name_in_result: true,
+                                module: db_module)
       end
 
       sessions
@@ -181,7 +182,7 @@ module SensuPluginsOracle
     end
 
     def set_session_module
-      return if !@module        
+      return if !@module
 
       @connection.exec("call DBMS_APPLICATION_INFO.SET_MODULE ('%s', null)" % @module.to_s)
 

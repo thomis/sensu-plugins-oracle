@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe SensuPluginsOracle::Session do
-
   context 'general' do
     it 'has a version' do
       expect(SensuPluginsOracle::VERSION).not_to eq(nil)
@@ -81,11 +80,9 @@ describe SensuPluginsOracle::Session do
       expect(method).to eq(:critical)
       expect(message).to eq("a_name (1)\n- 1, 2")
     end
-
   end
 
   context 'connection with username, password, database, and priviledges' do
-
     before(:each) do
       @session = SensuPluginsOracle::Session.new(username: 'a', password: 'b', database: 'c', module: 'd', priviledge: 'SYSDBA', name: 'a_name')
     end
@@ -114,5 +111,4 @@ describe SensuPluginsOracle::Session do
       expect(@session.error_message).to eq('a_name: ORA-12154: TNS:could not resolve the connect identifier specified')
     end
   end
-
 end

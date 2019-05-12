@@ -1,10 +1,10 @@
 ## 0.10.0 - 2019-05-12
 
 Added:
-- Option to define module that the oracle sessions will use (thanks to @zalum)
+- Option to define module that the oracle sessions will use (thanks to [@zalum](https://github.com/zalum))
 
 Bug Fixes:
-- Fix use of wrong version constant (thanks to @aurelije)
+- Fix use of wrong version constant (thanks to [@aurelije](https://github.com/aurelije))
 
 ## 0.9.1 - 2018-11-25
 
@@ -25,7 +25,7 @@ Major:
 - Update to sensu-plugin 2.3
 
 Bug Fixes:
-- Fix colliding -w short option. Worker count short option is now -W (Thanks to https://github.com/aurelije)
+- Fix colliding -w short option. Worker count short option is now -W (Thanks to [@aurelije](https://github.com/aurelije))
 
 ## 0.5.0 - 2017-07-27
 

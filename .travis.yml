@@ -1,15 +1,21 @@
 language: ruby
+
+env:
+  global:
+    - ORACLE_HOME=/usr/lib/oracle/12.2/client64
+    - LD_LIBRARY_PATH=/usr/lib/oracle/12.2/client64/lib
+
 os:
   - linux
+
 rvm:
   - 2.6.3
   - 2.5.5
   - 2.4.6
   - 2.3.8
+
 before_install:
+  - chmod +x ./travis/install_instant_client.sh
   - ./travis/install_instant_client.sh
   - gem install bundler --version '~> 2.0.1'
 
-env:
-  - ORACLE_HOME=/usr/lib/oracle/12.2/client64
-  - LD_LIBRARY_PATH=/usr/lib/oracle/12.2/client64/lib

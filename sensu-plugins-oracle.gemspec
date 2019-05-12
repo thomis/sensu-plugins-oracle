@@ -38,5 +38,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake', '~> 12.3'
   s.add_development_dependency 'pry',  '~> 0.12'
   s.add_development_dependency 'rspec', '~> 3.8'
-  s.add_development_dependency 'codeclimate-test-reporter', '~> 1.0'
 end

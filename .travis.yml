@@ -15,7 +15,9 @@ rvm:
   - 2.3.8
 
 before_install:
-  - chmod +x ./travis/install_instant_client.sh
-  - ./travis/install_instant_client.sh
+  - chmod +x .travis/install_instant_client.sh
   - gem install bundler --version '~> 2.0.1'
 
+install:
+  - .travis/install_instant_client.sh
+  - bundle install --without=development

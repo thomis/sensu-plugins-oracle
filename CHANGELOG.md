@@ -1,3 +1,11 @@
+## 0.10.0 - 2019-05-12
+
+Added:
+- Option to define module that the oracle sessions will use (thanks to @zalum)
+
+Bug Fixes:
+- Fix use of wrong version constant (thanks to @aurelije)
+
 ## 0.9.1 - 2018-11-25
 
 Major:

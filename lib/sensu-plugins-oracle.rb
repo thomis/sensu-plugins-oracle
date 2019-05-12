@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'oci8'
 require 'dentaku'
 

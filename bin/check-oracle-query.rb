@@ -50,6 +50,11 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
          short: '-d DATABASE',
          long: '--database DATABASE'
 
+  option :module,
+         description: 'Module that the oracle sessions will use',
+         short: '-m',
+         long: '--module MODULE'
+
   option :privilege,
          description: 'Connect to Oracle database by optional priviledge' \
                       ' (SYSDBA, SYSOPER, SYSASM,  , SYSDG or SYSKM)',
@@ -148,7 +153,8 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     session = SensuPluginsOracle::Session.new(username: config[:username],
                                               password: config[:password],
                                               database: config[:database],
-                                              privilege: config[:privilege])
+                                              privilege: config[:privilege],
+                                              module: config[:module])
 
     if session.query(config[:query].to_s)
       method, message = session.handle_query_result(config)
@@ -160,7 +166,8 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
   end
 
   def handle_connections_from_file
-    sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file])
+    sessions = ::SensuPluginsOracle::Session.parse_from_file(config[:file],
+                                                             config[:module])
     ::SensuPluginsOracle::Session.handle_multiple(sessions: sessions,
                                                   method: :query,
                                                   config: config,

@@ -3,7 +3,7 @@ module SensuPluginsOracle
   class Session
     attr_reader :name, :error_message
     attr_reader :connect_string
-    attr_reader :username, :password, :database, :priviledge
+    attr_reader :username, :password, :database, :module, :priviledge
 
     attr_reader :server_version
 
@@ -32,10 +32,11 @@ module SensuPluginsOracle
       @password = args[:password]
       @database = args[:database]
       @priviledge = validate_priviledge(args[:priviledge])
+      @module = args[:module]
       @provide_name_in_result = args[:provide_name_in_result] || false
     end
 
-    def self.parse_from_file(file)
+    def self.parse_from_file(file, db_module)
       sessions = []
 
       File.read(file).each_line do |line|
@@ -44,7 +45,8 @@ module SensuPluginsOracle
         a = line.split(/:|,|;/)
         sessions << Session.new(name: a[0],
                                 connect_string: a[1],
-                                provide_name_in_result: true)
+                                provide_name_in_result: true,
+                                module: db_module)
       end
 
       sessions
@@ -173,6 +175,15 @@ module SensuPluginsOracle
       else
         @connection = OCI8.new(@connect_string.to_s)
       end
+
+      set_session_module
+    end
+
+    def set_session_module
+      return if !@module
+
+      @connection.exec("call DBMS_APPLICATION_INFO.SET_MODULE ('%s', null)" % @module.to_s)
+
     end
 
     def disconnect

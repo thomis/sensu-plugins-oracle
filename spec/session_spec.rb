@@ -11,12 +11,13 @@ describe SensuPluginsOracle::Session do
 
   context 'connect string' do
     before(:each) do
-      @session = SensuPluginsOracle::Session.new(connect_string: "a/b@c", name: 'a_name')
+      @session = SensuPluginsOracle::Session.new(connect_string: "a/b@c", name: 'a_name', module: 'm')
     end
 
     it 'creates a session' do
       expect(@session.name).to eq('a_name')
       expect(@session.connect_string).to eq('a/b@c')
+      expect(@session.module).to eq('m')
     end
 
     it 'handles invalid aliveness' do
@@ -86,7 +87,7 @@ describe SensuPluginsOracle::Session do
   context 'connection with username, password, database, and priviledges' do
 
     before(:each) do
-      @session = SensuPluginsOracle::Session.new(username: 'a', password: 'b', database: 'c', priviledge: 'SYSDBA', name: 'a_name')
+      @session = SensuPluginsOracle::Session.new(username: 'a', password: 'b', database: 'c', module: 'd', priviledge: 'SYSDBA', name: 'a_name')
     end
 
     it 'creates a session' do
@@ -94,6 +95,7 @@ describe SensuPluginsOracle::Session do
       expect(@session.username).to eq('a')
       expect(@session.password).to eq('b')
       expect(@session.database).to eq('c')
+      expect(@session.module).to eq('d')
       expect(@session.priviledge).to eq(:SYSDBA)
     end
 

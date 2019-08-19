@@ -144,8 +144,8 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
       critical(limit([message, errors].flatten.join("\n - ")))
     end
 
-  # rescue => e
-  #   unknown limit(e.to_s)
+  rescue => e
+    unknown limit(e.to_s)
   end
 
   def limit(message)

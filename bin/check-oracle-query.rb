@@ -74,8 +74,8 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
   option :query,
          description: 'Database query to execute',
          short: '-q QUERY',
-         long: '--query QUERY',
-         required: true
+         long: '--query QUERY'
+         # required: true
 
   option :warning,
          description: 'Warning threshold expression',
@@ -136,7 +136,12 @@ class CheckOracleQuery < Sensu::Plugin::Check::CLI
     ::SensuPluginsOracle::Session.timeout_properties(config[:timeout])
 
     if config[:version]
-      ok("Version #{SensuPluginsOracle::VERSION::VER_STRING}")
+      ok("Version #{SensuPluginsOracle::VERSION}")
+      return
+    end
+
+    if config[:query].nil?
+      warning("You must supply: -q QUERY")
       return
     end
 

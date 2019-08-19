@@ -36,7 +36,7 @@ module SensuPluginsOracle
       @provide_name_in_result = args[:provide_name_in_result] || false
     end
 
-    def self.parse_from_file(file, db_module)
+    def self.parse_from_file(file, db_module=nil)
       sessions = []
 
       File.read(file).each_line do |line|

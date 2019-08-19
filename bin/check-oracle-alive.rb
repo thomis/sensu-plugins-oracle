@@ -96,7 +96,7 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
     ::SensuPluginsOracle::Session.timeout_properties(config[:timeout])
 
     if config[:version]
-      ok("Version #{SensuPluginsOracle::Version::VER_STRING}")
+      ok("Version #{SensuPluginsOracle::VERSION}")
       return
     end
 
@@ -144,8 +144,8 @@ class CheckOracleAlive < Sensu::Plugin::Check::CLI
       critical(limit([message, errors].flatten.join("\n - ")))
     end
 
-  rescue => e
-    unknown limit(e.to_s)
+  # rescue => e
+  #   unknown limit(e.to_s)
   end
 
   def limit(message)

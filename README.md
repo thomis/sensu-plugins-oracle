@@ -2,8 +2,7 @@
 [![Gem Version](https://badge.fury.io/rb/sensu-plugins-oracle.svg)](https://badge.fury.io/rb/sensu-plugins-oracle)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a96aadf931c023673c49/maintainability)](https://codeclimate.com/github/thomis/sensu-plugins-oracle/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a96aadf931c023673c49/test_coverage)](https://codeclimate.com/github/thomis/sensu-plugins-oracle/test_coverage)
-
-
+[![ci](https://github.com/thomis/sensu-plugins-oracle/actions/workflows/ci.yml/badge.svg)](https://github.com/thomis/sensu-plugins-oracle/actions/workflows/ci.yml)
 
 # sensu-plugins-oracle
 

@@ -1,0 +1,33 @@
+name: cd
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout current code
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+        bundler: latest
+        bundler-cache: true
+        cache-version: 1
+
+    - name: Push to Rubygems
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git config --global user.email "thomas.steiner@ikey.ch"
+        git config --global user.name "thomis"
+        mkdir ~/.gem
+        echo -e "---\n:rubygems_api_key: ${{ secrets.RUBYGEMS_API_KEY }}" > ~/.gem/credentials
+        chmod 600 ~/.gem/credentials
+        bundle exec rake release
+        rm ~/.gem/credentials

@@ -1,3 +1,11 @@
+## 0.11.0 - 2022-07-27
+
+Added:
+- Use of Depandabot
+- Use of GitHub actions
+- Use of Ruby style guide and linter
+- Use of Code Climate test coverage
+
 ## 0.10.0 - 2019-05-12
 
 Added:

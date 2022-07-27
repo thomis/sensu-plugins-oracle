@@ -36,7 +36,7 @@ module SensuPluginsOracle
       @provide_name_in_result = args[:provide_name_in_result] || false
     end
 
-    def self.parse_from_file(file, db_module=nil)
+    def self.parse_from_file(file, db_module = nil)
       sessions = []
 
       File.read(file).each_line do |line|
@@ -44,9 +44,9 @@ module SensuPluginsOracle
         next if line.size.zero? || line =~ /^#/
         a = line.split(/:|,|;/)
         sessions << Session.new(name: a[0],
-                                connect_string: a[1],
-                                provide_name_in_result: true,
-                                module: db_module)
+          connect_string: a[1],
+          provide_name_in_result: true,
+          module: db_module)
       end
 
       sessions
@@ -57,7 +57,7 @@ module SensuPluginsOracle
       @server_version = @connection.oracle_server_version
       true
     rescue StandardError, OCIError => e
-      @error_message = [@name, e.message.split("\n").first].compact.join(': ')
+      @error_message = [@name, e.message.split("\n").first].compact.join(": ")
       false
     ensure
       disconnect
@@ -75,10 +75,10 @@ module SensuPluginsOracle
       end
       cursor.close
 
-      return true
+      true
     rescue StandardError, OCIError => e
-      @error_message = [@name, e.message.split("\n").first].compact.join(': ')
-      return false
+      @error_message = [@name, e.message.split("\n").first].compact.join(": ")
+      false
     end
 
     def handle_query_result(config = {})
@@ -124,9 +124,9 @@ module SensuPluginsOracle
             else
               session.send(args[:method])
             end
-            message_done = format('Done       %s, took %0.1f ms',
-                                  session.name,
-                                  (Time.now - start) * 1000)
+            message_done = format("Done       %s, took %0.1f ms",
+              session.name,
+              (Time.now - start) * 1000)
             puts message_done if args[:config][:verbose]
           end
         end
@@ -147,7 +147,7 @@ module SensuPluginsOracle
       return nil unless show_records
       buffer = []
       buffer << "#{@name} (#{@rows.size})" if @provide_name_in_result
-      buffer += @rows.map { |row| '- ' + row.join(', ') }
+      buffer += @rows.map { |row| "- " + row.join(", ") }
       buffer.join("\n")
     end
 
@@ -170,10 +170,10 @@ module SensuPluginsOracle
     def connect
       return if @connection
 
-      if @username
-        @connection = OCI8.new(@username.to_s, @password.to_s, @database.to_s)
+      @connection = if @username
+        OCI8.new(@username.to_s, @password.to_s, @database.to_s)
       else
-        @connection = OCI8.new(@connect_string.to_s)
+        OCI8.new(@connect_string.to_s)
       end
 
       set_session_module
@@ -183,11 +183,10 @@ module SensuPluginsOracle
       return if !@module
 
       @connection.exec("call DBMS_APPLICATION_INFO.SET_MODULE ('%s', null)" % @module.to_s)
-
     end
 
     def disconnect
-      @connection.logoff if @connection
+      @connection&.logoff
       @connection = nil
     end
   end

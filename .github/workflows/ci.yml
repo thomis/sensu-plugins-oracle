@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      ORACLE_HOME: ~/instantclient
-      LD_LIBRARY_PATH: $ORACLE_HOME/lib
+      ORACLE_HOME: /opt/instantclient
+      LD_LIBRARY_PATH: /opt/instantclient/lib
       NLS_LANG: AMERICAN_AMERICA.AL32UTF8
 
     strategy:
@@ -35,6 +35,8 @@ jobs:
 
     - name: Install Oracle instant client
       run: |
+        mkdir -p /opt
+        cd /opt
         curl https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-basic-linux.x64-21.7.0.0.0dbru.zip --output instantclient.zip
         unzip instantclient.zip -d instantclient
         ls -l instantclient

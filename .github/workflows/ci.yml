@@ -35,10 +35,11 @@ jobs:
 
     - name: Install Oracle instant client
       run: |
-        mkdir -p /opt
-        cd /opt
+        mkdir -p /opt && cd /opt
         curl https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-basic-linux.x64-21.7.0.0.0dbru.zip --output instantclient.zip
+        curl https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-sdk-linux.x64-21.7.0.0.0dbru.zip --output instantclient_sdk.zip
         unzip instantclient.zip -d instantclient
+        unzip instantclient_sdk.zip -d instantclient
         ls -l instantclient
 
     - name: Set up Ruby

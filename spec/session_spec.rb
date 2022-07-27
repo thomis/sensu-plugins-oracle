@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe SensuPluginsOracle::Session do
+RSpec.describe SensuPluginsOracle::Session do
   context "general" do
     it "has a version" do
       expect(SensuPluginsOracle::VERSION).not_to eq(nil)

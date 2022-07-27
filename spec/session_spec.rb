@@ -18,9 +18,9 @@ RSpec.describe SensuPluginsOracle::Session do
 
       expect(sessions.size).to eq(2)
       expect(sessions[0].name).to eq("name1")
-      expect(session[0].connect_string).to eq("a/b@c")
-      expect(session[1].name).to eq("name2")
-      expect(session[1].connect_string).to eq("d/e@f")
+      expect(sessions[0].connect_string).to eq("a/b@c")
+      expect(sessions[1].name).to eq("name2")
+      expect(sessions[1].connect_string).to eq("d/e@f")
     end
   end
 

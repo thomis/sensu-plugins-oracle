@@ -54,4 +54,4 @@ Currently supported and tested ruby versions are:
 - 3.1
 - 3.0
 - 2.7
-- 2.6
+- 2.6 (EOL 31 Mar 2022)

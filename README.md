@@ -47,3 +47,12 @@ This sensu plugin provides native Oracle instrumentation.
 ## Installation
 
 [Installation and Setup](http://sensu-plugins.io/docs/installation_instructions.html)
+
+## Supported Ruby Versions
+
+Currently supported and tested ruby versions are:
+
+- 3.1
+- 3.0
+- 2.7
+- 2.6

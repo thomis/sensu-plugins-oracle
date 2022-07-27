@@ -20,6 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      ORACLE_HOME: ~/instantclient
+      LD_LIBRARY_PATH: $ORACLE_HOME/lib
+      NLS_LANG: AMERICAN_AMERICA.AL32UTF8
+
     strategy:
       fail-fast: false
       matrix:
@@ -28,6 +32,12 @@ jobs:
     name: Ruby ${{ matrix.ruby }}
     steps:
     - uses: actions/checkout@v1
+
+    - name: Install Oracle instant client
+      run: |
+        curl https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-basic-linux.x64-21.7.0.0.0dbru.zip --output instantclient.zip
+        unzip instantclient.zip -d instantclient
+        ls -l instantclient
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1

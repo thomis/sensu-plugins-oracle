@@ -20,7 +20,7 @@ RSpec.describe SensuPluginsOracle::Session do
     end
 
     it "allows to set timeout" do
-      expect{
+      expect {
         SensuPluginsOracle::Session.timeout_properties(30)
       }.not_to raise_error
     end

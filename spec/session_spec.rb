@@ -6,6 +6,22 @@ RSpec.describe SensuPluginsOracle::Session do
       expect(SensuPluginsOracle::VERSION).not_to eq(nil)
       expect(SensuPluginsOracle::VERSION.split(".").size).to eq(3)
     end
+
+    it "allows to set timeout" do
+      expect {
+        SensuPluginsOracle::Session.timeout_properties(30)
+      }.not_to raise_error
+    end
+
+    it "creates session from file" do
+      sessions = SensuPluginsOracle::Session.parse_from_file("spec/fixtures/connections.txt")
+
+      expect(sessions.size).to eq(2)
+      expect(sessions[0].name).to eq("name1")
+      expect(session[0].connect_string).to eq("a/b@c")
+      expect(session[1].name).to eq("name2")
+      expect(session[1].connect_string).to eq("d/e@f")
+    end
   end
 
   context "connect string" do
@@ -17,12 +33,6 @@ RSpec.describe SensuPluginsOracle::Session do
       expect(session.name).to eq("a_name")
       expect(session.connect_string).to eq("a/b@c")
       expect(session.module).to eq("m")
-    end
-
-    it "allows to set timeout" do
-      expect {
-        SensuPluginsOracle::Session.timeout_properties(30)
-      }.not_to raise_error
     end
 
     it "handles invalid aliveness" do

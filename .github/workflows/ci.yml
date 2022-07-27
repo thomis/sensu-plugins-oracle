@@ -20,8 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      ORACLE_HOME: /opt/instantclient
-      LD_LIBRARY_PATH: /opt/instantclient/lib
+      ORACLE_HOME: /opt/instantclient_21_7
+      LD_LIBRARY_PATH: /opt/instantclient_21_7
+      OCI_DIR: /opt/instantclient_21_7
       NLS_LANG: AMERICAN_AMERICA.AL32UTF8
 
     strategy:
@@ -38,9 +39,8 @@ jobs:
         mkdir -p /opt && cd /opt
         curl https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-basic-linux.x64-21.7.0.0.0dbru.zip --output instantclient.zip
         curl https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-sdk-linux.x64-21.7.0.0.0dbru.zip --output instantclient_sdk.zip
-        unzip instantclient.zip -d instantclient
-        unzip instantclient_sdk.zip -d instantclient
-        ls -l instantclient
+        unzip instantclient.zip
+        unzip instantclient_sdk.zip
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1

@@ -32,7 +32,7 @@ jobs:
 
     name: Ruby ${{ matrix.ruby }}
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
 
     - name: Install Oracle instant client
       run: |

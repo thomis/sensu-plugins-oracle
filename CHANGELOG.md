@@ -1,3 +1,9 @@
+## 0.12.0 - 2022-08-19
+
+Changed:
+- Adapt CI/CD to actual ruby versions
+- Update Dependencies
+
 ## 0.11.0 - 2022-07-27
 
 Added:

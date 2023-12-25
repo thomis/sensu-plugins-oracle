@@ -1,3 +1,8 @@
+## 0.12.0 - 2023-12-25
+
+Changed:
+- Adapt CI/CD to use ruby 3.3.0
+
 ## 0.12.0 - 2022-08-19
 
 Changed:

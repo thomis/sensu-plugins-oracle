@@ -1,4 +1,9 @@
-## 0.12.0 - 2023-12-25
+## 0.14.0 - 2024-02-21
+
+Changed:
+- Update Dependencies
+
+## 0.13.0 - 2023-12-25
 
 Changed:
 - Adapt CI/CD to use ruby 3.3.0

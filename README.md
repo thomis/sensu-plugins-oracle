@@ -51,8 +51,9 @@ This sensu plugin provides native Oracle instrumentation.
 
 Currently supported and tested ruby versions are:
 
+- 3.3
 - 3.2
 - 3.1
-- 3.0
+- 3.0 (EOL March 31 2024)
 - 2.7 (EOL March 31 2023, is not part of CI anymore)
 - 2.6 (EOL March 31 2022, is not part of CI anymore)

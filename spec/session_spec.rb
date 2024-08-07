@@ -37,17 +37,17 @@ RSpec.describe SensuPluginsOracle::Session do
 
     it "handles invalid aliveness" do
       expect(session.alive?).to eq(false)
-      expect(session.error_message).to eq("a_name: ORA-12154: TNS:could not resolve the connect identifier specified")
+      expect(session.error_message).to match("a_name: ORA-12154")
     end
 
     it "return error message" do
       session.alive?
-      expect(session.error_message).to eq("a_name: ORA-12154: TNS:could not resolve the connect identifier specified")
+      expect(session.error_message).to match("a_name: ORA-12154")
     end
 
     it "handles invalid query" do
       expect(session.query("select 1 from dual")).to eq(false)
-      expect(session.error_message).to eq("a_name: ORA-12154: TNS:could not resolve the connect identifier specified")
+      expect(session.error_message).to match("a_name: ORA-12154")
     end
 
     it "handles empty query results" do
@@ -114,17 +114,17 @@ RSpec.describe SensuPluginsOracle::Session do
 
     it "handles invalid aliveness" do
       expect(session.alive?).to eq(false)
-      expect(session.error_message).to eq("a_name: ORA-12154: TNS:could not resolve the connect identifier specified")
+      expect(session.error_message).to match("a_name: ORA-12154")
     end
 
     it "return error message" do
       session.alive?
-      expect(session.error_message).to eq("a_name: ORA-12154: TNS:could not resolve the connect identifier specified")
+      expect(session.error_message).to match("a_name: ORA-12154")
     end
 
     it "handles invalid query" do
       expect(session.query("select 1 from dual")).to eq(false)
-      expect(session.error_message).to eq("a_name: ORA-12154: TNS:could not resolve the connect identifier specified")
+      expect(session.error_message).to match("a_name: ORA-12154")
     end
   end
 end

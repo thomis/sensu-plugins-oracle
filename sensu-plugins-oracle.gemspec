@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "sensu-plugin", "~> 4.0"
   s.add_runtime_dependency "ruby-oci8", "~> 2.2"
   s.add_runtime_dependency "dentaku", "~> 3.3"
+  s.add_runtime_dependency "logger", "~> 1.6"
 
   s.add_development_dependency "bundler", "~> 2.3"
   s.add_development_dependency "rake", "~> 13.1"

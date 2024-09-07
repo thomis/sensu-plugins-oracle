@@ -1,3 +1,9 @@
+## 0.15.0 - 2024-09-07
+
+Changed:
+- Update Dependencies
+- Make it compatible to future ruby versions (logger)
+
 ## 0.14.0 - 2024-02-21
 
 Changed:

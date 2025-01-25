@@ -22,6 +22,8 @@ jobs:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       ORACLE_HOME: /opt/instantclient_23_7
       NLS_LANG: AMERICAN_AMERICA.AL32UTF8
+      LD_LIBRARY_PATH: /opt/instantclient_23_7:$LD_LIBRARY_PATH
+      OCI_DIR: /opt/instantclient_23_7
 
     strategy:
       fail-fast: false
@@ -34,9 +36,6 @@ jobs:
 
     - name: Install Oracle instant client
       run: |
-        export LD_LIBRARY_PATH=$ORACLE_HOME:$LD_LIBRARY_PATH
-        export OCI_DIR=$ORACLE_HOME
-
         mkdir -p /opt && cd /opt
         curl https://download.oracle.com/otn_software/linux/instantclient/2370000/instantclient-basiclite-linux.x64-23.7.0.25.01.zip --output instantclient.zip
         curl https://download.oracle.com/otn_software/linux/instantclient/2370000/instantclient-sdk-linux.x64-23.7.0.25.01.zip --output instantclient_sdk.zip

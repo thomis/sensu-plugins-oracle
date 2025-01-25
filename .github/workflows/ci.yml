@@ -20,9 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      ORACLE_HOME: /opt/instantclient_21_7
-      LD_LIBRARY_PATH: /opt/instantclient_21_7
-      OCI_DIR: /opt/instantclient_21_7
+      ORACLE_HOME: /opt/instantclient_23_7
+      LD_LIBRARY_PATH: ${{ env.ORACLE_HOME }}:$LD_LIBRARY_PATH
+      OCI_DIR: ${{ env.ORACLE_HOME }}
       NLS_LANG: AMERICAN_AMERICA.AL32UTF8
 
     strategy:
@@ -37,10 +37,25 @@ jobs:
     - name: Install Oracle instant client
       run: |
         mkdir -p /opt && cd /opt
-        curl https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-basic-linux.x64-21.7.0.0.0dbru.zip --output instantclient.zip
-        curl https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-sdk-linux.x64-21.7.0.0.0dbru.zip --output instantclient_sdk.zip
-        unzip instantclient.zip
-        unzip instantclient_sdk.zip
+        curl https://download.oracle.com/otn_software/linux/instantclient/2370000/instantclient-basiclite-linux.x64-23.7.0.25.01.zip --output instantclient.zip
+        curl https://download.oracle.com/otn_software/linux/instantclient/2370000/instantclient-sdk-linux.x64-23.7.0.25.01.zip --output instantclient_sdk.zip
+        curl https://download.oracle.com/otn_software/linux/instantclient/2370000/instantclient-sqlplus-linux.x64-23.7.0.25.01.zip --output instantclient_sqlplus.zip
+        unzip -o instantclient.zip
+        unzip -o instantclient_sdk.zip
+        unzip -o instantclient_sqlplus.zip
+
+    - name: libaio.so.1 symbolic link fix
+      run: |
+        TARGET="/lib/x86_64-linux-gnu/libaio.so.1"
+        SOURCE="/lib/x86_64-linux-gnu/libaio.so.1t64"
+
+        # Check if the symbolic link already exists
+        if [ ! -e "$TARGET" ]; then
+            sudo ln -s "$SOURCE" "$TARGET"
+            echo "Symbolic link created: $TARGET -> $SOURCE"
+        else
+            echo "Symbolic link already exists: $TARGET"
+        fi
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1

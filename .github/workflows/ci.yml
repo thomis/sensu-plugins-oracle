@@ -21,8 +21,6 @@ jobs:
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       ORACLE_HOME: /opt/instantclient_23_7
-      LD_LIBRARY_PATH: ${{ env.ORACLE_HOME }}:$LD_LIBRARY_PATH
-      OCI_DIR: ${{ env.ORACLE_HOME }}
       NLS_LANG: AMERICAN_AMERICA.AL32UTF8
 
     strategy:
@@ -36,6 +34,9 @@ jobs:
 
     - name: Install Oracle instant client
       run: |
+        export LD_LIBRARY_PATH=$ORACLE_HOME:$LD_LIBRARY_PATH
+        export OCI_DIR=$ORACLE_HOME
+
         mkdir -p /opt && cd /opt
         curl https://download.oracle.com/otn_software/linux/instantclient/2370000/instantclient-basiclite-linux.x64-23.7.0.25.01.zip --output instantclient.zip
         curl https://download.oracle.com/otn_software/linux/instantclient/2370000/instantclient-sdk-linux.x64-23.7.0.25.01.zip --output instantclient_sdk.zip
@@ -44,7 +45,7 @@ jobs:
         unzip -o instantclient_sdk.zip
         unzip -o instantclient_sqlplus.zip
 
-    - name: libaio.so.1 symbolic link fix
+    - name: libaio.so.1 fix with symbolic link
       run: |
         TARGET="/lib/x86_64-linux-gnu/libaio.so.1"
         SOURCE="/lib/x86_64-linux-gnu/libaio.so.1t64"
@@ -52,9 +53,6 @@ jobs:
         # Check if the symbolic link already exists
         if [ ! -e "$TARGET" ]; then
             sudo ln -s "$SOURCE" "$TARGET"
-            echo "Symbolic link created: $TARGET -> $SOURCE"
-        else
-            echo "Symbolic link already exists: $TARGET"
         fi
 
     - name: Set up Ruby

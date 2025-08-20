@@ -63,7 +63,7 @@ Ruby versions not tested anymore:
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/thomis/sensu-plugins-oracle. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/thomis/sensu-plugins-oracle. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
 
 1. Fork it ( https://github.com/thomis/sensu-plugins-oracle/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)

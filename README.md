@@ -1,8 +1,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/sensu-plugins-oracle.svg)](https://badge.fury.io/rb/sensu-plugins-oracle)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a96aadf931c023673c49/maintainability)](https://codeclimate.com/github/thomis/sensu-plugins-oracle/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a96aadf931c023673c49/test_coverage)](https://codeclimate.com/github/thomis/sensu-plugins-oracle/test_coverage)
-[![ci](https://github.com/thomis/sensu-plugins-oracle/actions/workflows/ci.yml/badge.svg)](https://github.com/thomis/sensu-plugins-oracle/actions/workflows/ci.yml)
+[![01 - Test](https://github.com/thomis/sensu-plugins-oracle/actions/workflows/01_test.yml/badge.svg)](https://github.com/thomis/sensu-plugins-oracle/actions/workflows/01_test.yml)
+[![02 - Release](https://github.com/thomis/sensu-plugins-oracle/actions/workflows/02_release.yml/badge.svg)](https://github.com/thomis/sensu-plugins-oracle/actions/workflows/02_release.yml)
 
 # sensu-plugins-oracle
 
@@ -61,3 +60,17 @@ Ruby versions not tested anymore:
 - 3.0 (EOL March 31 2024)
 - 2.7 (EOL March 31 2023)
 - 2.6 (EOL March 31 2022)
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/thomis/sensu-plugins-oracle. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the code of conduct.
+
+1. Fork it ( https://github.com/thomis/sensu-plugins-oracle/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

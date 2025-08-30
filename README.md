@@ -61,6 +61,11 @@ Ruby versions not tested anymore:
 - 2.7 (EOL March 31 2023)
 - 2.6 (EOL March 31 2022)
 
+## Branch naming
+
+Note: the default branch was renamed from `master` to `main` in 2025/08 to align with modern Git defaults.
+Please base new work and pull requests on `main`.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/thomis/sensu-plugins-oracle. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.

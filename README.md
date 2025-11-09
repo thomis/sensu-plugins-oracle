@@ -66,6 +66,12 @@ Ruby versions not tested anymore:
 Note: the default branch was renamed from `master` to `main` in 2025/08 to align with modern Git defaults.
 Please base new work and pull requests on `main`.
 
+## Publishing
+
+This project uses [Trusted Publishing](https://guides.rubygems.org/trusted-publishing/) to securely publish gems to RubyGems.org. Trusted Publishing eliminates the need for long-lived API tokens by using OpenID Connect (OIDC) to establish a trusted relationship between GitHub Actions and RubyGems.org.
+
+With Trusted Publishing configured, gem releases are automatically published to RubyGems when the release workflow runs, providing a more secure and streamlined publishing process.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/thomis/sensu-plugins-oracle. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.

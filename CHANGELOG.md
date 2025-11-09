@@ -1,3 +1,8 @@
+## 0.15.1 - 2025-11-09
+
+Added:
+- Enabled Trusted Publishing
+
 ## 0.15.0 - 2024-09-07
 
 Changed:

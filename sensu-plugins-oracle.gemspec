@@ -33,7 +33,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "dentaku", "~> 3.3"
   s.add_runtime_dependency "logger", "~> 1.6"
 
-  s.add_development_dependency "bundler", "~> 2.3"
   s.add_development_dependency "rake", "~> 13.1"
   s.add_development_dependency "rspec", "~> 3.13"
   s.add_development_dependency "standard", "~> 1.23"

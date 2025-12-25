@@ -1,3 +1,8 @@
+## 0.15.2 - 2025-12-25
+
+Changed:
+- Ensure ruby 4.0.0 compatibility
+
 ## 0.15.1 - 2025-11-09
 
 Added:

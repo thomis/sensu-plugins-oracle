@@ -1,3 +1,8 @@
+## 0.16.0 - 2026-08-24
+
+Changed:
+- Update Dependencies
+
 ## 0.15.2 - 2025-12-25
 
 Changed:

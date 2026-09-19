@@ -36,5 +36,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake", "~> 13.1"
   s.add_development_dependency "rspec", "~> 3.13"
   s.add_development_dependency "standard", "~> 1.23"
-  s.add_development_dependency "simplecov", "~> 1.1.1"
+  s.add_development_dependency "simplecov", "~> 1.3.0"
 end

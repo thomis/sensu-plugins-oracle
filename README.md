@@ -53,10 +53,10 @@ Currently supported and tested ruby versions are:
 - 4.0 (EOL March 31 2029)
 - 3.4 (EOL March 31 2028)
 - 3.3 (EOL March 31 2027)
-- 3.2 (EOL March 31 2026)
 
 Ruby versions not tested anymore:
 
+- 3.2 (EOL March 31 2026)
 - 3.1 (EOL March 31 2025)
 - 3.0 (EOL March 31 2024)
 - 2.7 (EOL March 31 2023)
